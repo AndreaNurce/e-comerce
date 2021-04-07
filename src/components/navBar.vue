@@ -1,8 +1,28 @@
 <template>
-<div>
-    asdf
-</div>
-  
+    <header>
+        <div class="wrapper">
+            <div class="left-side">
+                <div class="logo">
+                    <h1>breezi store</h1>
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li>Home</li>
+                        <li>Shop</li>
+                        <li>Features</li>
+                        <li>Blog</li>
+                        <li>About</li>
+                        <li>Contact</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right-side">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-shopping-cart"></i>
+                <i class="far fa-heart"></i>
+            </div>
+        </div>
+    </header>
 </template>
 
 <script>
@@ -11,6 +31,38 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+    header{
 
+        display: flex;
+        align-items:center;
+        justify-content: center;
+
+        .wrapper{
+            display: flex;
+            align-items:center;
+            justify-content: space-between;
+            width : 90%;
+            height: 80px;
+            .left-side{
+                width:65%;
+                display: flex;
+                align-items:center;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                ul{
+                    li{
+                        list-style: none;
+                        display: inline-block;
+                        padding: 15px;
+                    }
+                }
+            }
+            .right-side{
+                i{
+                    padding: 10px;
+                }
+            }
+        }
+    }
 </style>

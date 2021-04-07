@@ -1,11 +1,12 @@
 <template>
   <div>
-    test
+    mobilenav
 </div>
 </template>
 
 <script>
 export default {
+
 
 }
 </script>

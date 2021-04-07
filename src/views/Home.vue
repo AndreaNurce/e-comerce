@@ -1,7 +1,7 @@
 <template>
     <section class="Home" >
-        <nav-bar/>
-        <nav-bar-mobile/>
+        <nav-bar v-if="!mobile"> </nav-bar>
+        <nav-bar-mobile v-if="mobile"> </nav-bar-mobile>
     </section>
 </template>
 
@@ -12,7 +12,26 @@ export default {
     components:{
         navBar,
         navBarMobile,
+    }, data() {
+    return {
+      mobile : false,
     }
+  },
+  methods: {
+    handleNav(){
+  if(window.innerWidth <= 965 ){
+    this.mobile = true
+  }else{
+    this.mobile = false
+  }
+}
+  },
+  created () {
+    window.addEventListener('resize', this.handleNav);
+  },
+    unmounted () {
+    window.addEventListener('resize', this.handleNav);
+  }
 
 }
 </script>
