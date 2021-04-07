@@ -32,23 +32,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    header{
 
+@mixin flex($content){
         display: flex;
         align-items:center;
-        justify-content: center;
+        justify-content: $content;
+}
+    header{
+        @include flex(center);
 
         .wrapper{
-            display: flex;
-            align-items:center;
-            justify-content: space-between;
+        @include flex(space-between);
             width : 90%;
             height: 80px;
             .left-side{
+                @include flex(space-between);
                 width:65%;
-                display: flex;
-                align-items:center;
-                justify-content: space-between;
                 flex-wrap: nowrap;
                 ul{
                     li{
