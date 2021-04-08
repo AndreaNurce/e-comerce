@@ -3,7 +3,7 @@
         <div class="wrapper">
             <div class="left-side">
                 <div class="logo">
-                    <h1>breezi store</h1>
+                    <p> <b> brezzi </b>Store</p>
                 </div>
                 <div class="menu">
                     <ul>
@@ -41,21 +41,37 @@ export default {
         @include flex(space-between);
             width : 90%;
             height: 80px;
+            font-family : $font1;
             .left-side{
                 @include flex(space-between);
-                width:65%;
+                width:62%;
                 flex-wrap: nowrap;
+                .logo{
+                    font-size: 26px;
+                }
                 ul{
                     li{
+                        cursor: pointer;
                         list-style: none;
                         display: inline-block;
-                        padding: 15px;
+                        padding: 10px;
+                        font-size: 18px;
+                        transition:$hoverEffect ;
+                     &:hover{
+                        color: $iconHover;
+                        }
                     }
                 }
             }
             .right-side{
-                i{
-                    padding: 10px;
+                .fas,.far{
+                   padding: 10px;
+                    transition:$hoverEffect ;
+                    cursor: pointer;
+                    font-size:18px;
+                    &:hover{
+                    color: $iconHover;
+                    }
                 }
             }
         }
