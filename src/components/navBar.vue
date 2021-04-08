@@ -33,11 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 
-@mixin flex($content){
-        display: flex;
-        align-items:center;
-        justify-content: $content;
-}
+
     header{
         @include flex(center);
 
