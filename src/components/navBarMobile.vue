@@ -1,4 +1,5 @@
 <template>
+<section>
     <header>
         <div class="wrapper">
             <div class="left-side">
@@ -16,6 +17,13 @@
             </div>
         </div>
     </header>
+    <div class="menu">
+        <ul>
+            <li>adsfasd</li>
+<li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li>
+        </ul>
+    </div>
+    </section>
 </template>
 
 <script>
@@ -27,7 +35,8 @@ export default {
     }
   },methods: {
     menuSwitch (){
-        this.state.menuVisible = !this.state.menuVisible
+        this.state.menuVisible = !this.state.menuVisible;
+        this.$store.commit('showMenu')
     }
   },
 
@@ -72,4 +81,10 @@ export default {
             }
         }
     }
+
+.menu{
+    position: absolute;
+    z-index: -1;
+    height: 100px;
+}
 </style>
