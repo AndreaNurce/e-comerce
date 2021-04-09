@@ -1,12 +1,12 @@
 import { createStore } from 'vuex'
 
-export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
+
+const store = createStore({
+  state:{
+    menuVisible : false
   }
 })
+
+export default store
+
+

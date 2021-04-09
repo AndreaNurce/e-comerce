@@ -11,22 +11,23 @@
                 <i class="fas fa-search"></i>
                 <i class="fas fa-shopping-cart"></i>
                 <i class="far fa-heart"></i>
-                <i @click="menuSwitch()" v-if="!menuVisible" class="fas fa-bars"></i>
-                <i @click="menuSwitch()" v-if="menuVisible" class="fas fa-times"></i>
+                <i @click="menuSwitch()" v-if="!state.menuVisible"  class="fas fa-bars"></i>
+                <i @click="menuSwitch()" v-if="state.menuVisible" class="fas fa-times"></i>
             </div>
         </div>
     </header>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-      menuVisible : false
+        state : this.$store.state
     }
   },methods: {
     menuSwitch (){
-      this.menuVisible = !this.menuVisible;
+        this.state.menuVisible = !this.state.menuVisible
     }
   },
 

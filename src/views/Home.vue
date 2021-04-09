@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     handleNav(){
-  if(window.innerWidth <= 1050 ){
+  if(window.innerWidth <= 1100 ){
     this.mobile = true
   }else{
     this.mobile = false
