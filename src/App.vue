@@ -1,7 +1,7 @@
 <template>
   <div id="store">
-    <nav-bar v-if="!mobile"> </nav-bar>
-    <nav-bar-mobile v-if="mobile"> </nav-bar-mobile>
+    <nav-bar class="stickyHeader" v-if="!mobile"> </nav-bar>
+    <nav-bar-mobile class="stickyHeader" v-if="mobile"> </nav-bar-mobile>
     <div id="wrapper">
       <router-view/>
     </div>
@@ -24,13 +24,14 @@ export default {
     handleNav(){
   if(window.innerWidth <= 1100 ){
     this.mobile = true;
-    this.$store.state.menuVisible = false;
   }else{
     this.mobile = false
   }
+    this.$store.state.menuVisible = false;
+    this.$store.commit('showMenu')
 }
   },
-  created () {
+  mounted () {
     window.addEventListener('resize', this.handleNav);
     this.handleNav();
   },
@@ -42,11 +43,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.store{
+position:relative;
+}
+
 
 #wrapper{
-  height: 100vh;
+  height: 200vh;
   background-color:red;
   transition:$hoverEffect;
+  margin-top:80px;
 }
 
 </style>

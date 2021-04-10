@@ -18,12 +18,16 @@
         </div>
     </header>
     <div class="menu">
-        <ul>
-            <li>adsfasd</li>
-<li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li><li>adsfasd</li>
+       <ul>
+            <li>Home</li>
+            <li>Shop</li>
+            <li>Features</li>
+            <li>Blog</li>
+            <li>About</li>
+            <li>Contact</li>
         </ul>
     </div>
-    </section>
+</section>
 </template>
 
 <script>
@@ -47,6 +51,10 @@ export default {
 
 
     header{
+        position: fixed;
+        width: 100%;
+        top:0;
+        background-color: white;
         @include flex(center);
         .wrapper{
         @include flex(space-between);
@@ -83,8 +91,24 @@ export default {
     }
 
 .menu{
-    position: absolute;
+    position: fixed;
+    display: flex;
+    right: 0;
+    justify-content: center;
+    top: 80px;
     z-index: -1;
-    height: 100px;
+    width: 200px;
+    background-color:white;
+    height:100%;
+
+    ul{
+        padding: 10px;
+        height:200px;
+        li{
+        list-style: none;
+        padding: 12px;
+
+        }
+    }
 }
 </style>

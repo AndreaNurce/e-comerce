@@ -8,9 +8,9 @@ const store = createStore({
   mutations :{
     showMenu(state){
       if(state.menuVisible){
-        document.querySelector('#wrapper').style.marginTop = '100px'
+        document.querySelector('#wrapper').style.marginRight = '200px'
       }else{
-        document.querySelector('#wrapper').style.marginTop = '0px'
+        document.querySelector('#wrapper').style.marginRight = '0px'
       }
     }
   }

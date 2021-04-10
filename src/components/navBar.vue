@@ -36,7 +36,10 @@ export default {
 
     header{
         @include flex(center);
-
+        position: fixed;
+        width: 100%;
+        top:0;
+        background-color: white;
         .wrapper{
         @include flex(space-between);
             width : 90%;
