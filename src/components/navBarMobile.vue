@@ -17,22 +17,18 @@
             </div>
         </div>
     </header>
-    <div class="menu">
-       <ul>
-            <li>Home</li>
-            <li>Shop</li>
-            <li>Features</li>
-            <li>Blog</li>
-            <li>About</li>
-            <li>Contact</li>
-        </ul>
+    <div id="menu">
+       <navigation displayProp="block"/>
     </div>
 </section>
 </template>
 
 <script>
-
+import navigation from '@/components/navigation.vue'
 export default {
+    components:{
+        navigation,
+    },
   data() {
     return {
         state : this.$store.state
@@ -90,25 +86,16 @@ export default {
         }
     }
 
-.menu{
+#menu{
     position: fixed;
     display: flex;
     right: 0;
     justify-content: center;
     top: 80px;
-    z-index: -1;
+    margin-right:-200px;
     width: 200px;
     background-color:white;
     height:100%;
-
-    ul{
-        padding: 10px;
-        height:200px;
-        li{
-        list-style: none;
-        padding: 12px;
-
-        }
-    }
+    transition: $hoverEffect;
 }
 </style>

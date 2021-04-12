@@ -1,5 +1,5 @@
 <template>
-  <div id="store">
+  <div>
     <nav-bar class="stickyHeader" v-if="!mobile"> </nav-bar>
     <nav-bar-mobile class="stickyHeader" v-if="mobile"> </nav-bar-mobile>
     <div id="wrapper">
@@ -43,11 +43,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.store{
-position:relative;
-}
-
-
 #wrapper{
   height: 200vh;
   background-color:red;

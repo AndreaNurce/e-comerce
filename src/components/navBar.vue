@@ -6,14 +6,7 @@
                     <p> <b> brezzi </b>Store</p>
                 </div>
                 <div class="menu">
-                    <ul>
-                        <li>Home</li>
-                        <li>Shop</li>
-                        <li>Features</li>
-                        <li>Blog</li>
-                        <li>About</li>
-                        <li>Contact</li>
-                    </ul>
+                    <navigation displayProp="inline-block" />
                 </div>
             </div>
             <div class="right-side">
@@ -26,8 +19,11 @@
 </template>
 
 <script>
+import navigation from '@/components/navigation.vue'
 export default {
-
+components : {
+    navigation,
+}
 }
 </script>
 
@@ -52,19 +48,7 @@ export default {
                 .logo{
                     font-size: 26px;
                 }
-                ul{
-                    li{
-                        cursor: pointer;
-                        list-style: none;
-                        display: inline-block;
-                        padding: 10px;
-                        font-size: 20px;
-                        transition:$hoverEffect ;
-                     &:hover{
-                        color: $iconHover;
-                        }
-                    }
-                }
+
             }
             .right-side{
                 .fas,.far{
