@@ -1,4 +1,5 @@
 <template>
+<div>
     <header>
         <div class="wrapper">
             <div class="left-side">
@@ -17,19 +18,38 @@
                 </div>
             </div>
             <div class="right-side">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-shopping-cart"></i>
-                <i class="far fa-heart"></i>
-                <i class="fas fa-user-circle"></i>
+                <i @click="menuOpened()" class="fas fa-search"></i>
+                <i @click="menuOpened()" class="fas fa-shopping-cart"></i>
+                <i @click="menuOpened()" class="far fa-heart"></i>
+                <i @click="menuOpened()" class="fas fa-user-circle"></i>
             </div>
         </div>
     </header>
+       <div id="menu">
+       <navigation />
+    </div>
+        </div>
 </template>
 
 <script>
-export default {
+import navigation from '@/components/navigation.vue'
 
+export default {
+    components:{
+        navigation,
+    },
+  data() {
+    return {
+        state : this.$store.state
+    }
+  },methods: {
+    menuOpened (){
+        this.state.menuVisible = true;
+        this.$store.commit('openMenu')
+    }
+  },
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -81,4 +101,17 @@ export default {
             }
         }
     }
+
+    #menu{
+    position: fixed;
+    display: flex;
+    right: 0;
+    justify-content: center;
+    top: 80px;
+    margin-right:-200px;
+    width: 200px;
+    background-color:white;
+    height:100%;
+    transition: $hoverEffect;
+}
 </style>
