@@ -6,24 +6,29 @@
                     <p> <b> brezzi </b>Store</p>
                 </div>
                 <div class="menu">
-                    <navigation displayProp="inline-block" />
+                <ul>
+                    <li >Home</li>
+                    <li>Shop</li>
+                    <li>Features</li>
+                    <li>Blog</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                </ul>
                 </div>
             </div>
             <div class="right-side">
                 <i class="fas fa-search"></i>
                 <i class="fas fa-shopping-cart"></i>
                 <i class="far fa-heart"></i>
+                <i class="fas fa-user-circle"></i>
             </div>
         </div>
     </header>
 </template>
 
 <script>
-import navigation from '@/components/navigation.vue'
 export default {
-components : {
-    navigation,
-}
+
 }
 </script>
 
@@ -48,6 +53,19 @@ components : {
                 .logo{
                     font-size: 26px;
                 }
+                 ul{
+                    li{
+                        cursor: pointer;
+                        list-style: none;
+                        display:inline-block;
+                        padding: 10px;
+                        font-size: 20px;
+                        transition:$hoverEffect ;
+                        &:hover{
+                        color: $iconHover;
+                        }
+                    }
+    }
 
             }
             .right-side{

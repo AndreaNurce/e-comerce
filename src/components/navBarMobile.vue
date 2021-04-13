@@ -9,16 +9,16 @@
 
             </div>
             <div class="right-side">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-shopping-cart"></i>
-                <i class="far fa-heart"></i>
-                <i @click="menuSwitch()" v-if="!state.menuVisible"  class="fas fa-bars"></i>
-                <i @click="menuSwitch()" v-if="state.menuVisible" class="fas fa-times"></i>
+                <i @click="menuOpened()"  class="fas fa-search"></i>
+                <i @click="menuOpened()"  class="fas fa-shopping-cart"></i>
+                <i @click="menuOpened()"  class="far fa-heart"></i>
+                <i @click="menuOpened()"  class="fas fa-user-circle"></i>
+                <i @click="menuOpened()"  class="fas fa-bars"></i>
             </div>
         </div>
     </header>
     <div id="menu">
-       <navigation displayProp="block"/>
+       <navigation />
     </div>
 </section>
 </template>
@@ -34,9 +34,9 @@ export default {
         state : this.$store.state
     }
   },methods: {
-    menuSwitch (){
-        this.state.menuVisible = !this.state.menuVisible;
-        this.$store.commit('showMenu')
+    menuOpened (){
+        this.state.menuVisible = true;
+        this.$store.commit('openMenu')
     }
   },
 

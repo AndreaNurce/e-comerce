@@ -28,7 +28,7 @@ export default {
     this.mobile = false
   }
     this.$store.state.menuVisible = false;
-    this.$store.commit('showMenu')
+    this.$store.commit('closeMenu')
 }
   },
   mounted () {
