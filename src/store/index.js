@@ -3,10 +3,12 @@ import { createStore } from 'vuex'
 
 const store = createStore({
   state:{
-    menuVisible : false
+    menuVisible : false,
+    currentNav : ''
   },
   mutations :{
-    openMenu(){
+    openMenu(state , current){
+      state.currentNav = current;
         document.querySelector('#menu').style.marginRight = '0px'
         document.querySelector('#wrapper').style.marginRight = '200px'
     },closeMenu(){

@@ -9,11 +9,11 @@
 
             </div>
             <div class="right-side">
-                <i @click="menuOpened()"  class="fas fa-search"></i>
-                <i @click="menuOpened()"  class="fas fa-shopping-cart"></i>
-                <i @click="menuOpened()"  class="far fa-heart"></i>
-                <i @click="menuOpened()"  class="fas fa-user-circle"></i>
-                <i @click="menuOpened()"  class="fas fa-bars"></i>
+                <i @click="menuOpened('Search')"  class="fas fa-search"></i>
+                <i @click="menuOpened('Chart')"  class="fas fa-shopping-cart"></i>
+                <i @click="menuOpened('Favourite')"  class="far fa-heart"></i>
+                <i @click="menuOpened('Admin')"  class="fas fa-user-circle"></i>
+                <i @click="menuOpened('Menu')"  class="fas fa-bars"></i>
             </div>
         </div>
     </header>
@@ -34,9 +34,9 @@ export default {
         state : this.$store.state
     }
   },methods: {
-    menuOpened (){
+    menuOpened (current){
         this.state.menuVisible = true;
-        this.$store.commit('openMenu')
+        this.$store.commit('openMenu',current);
     }
   },
 

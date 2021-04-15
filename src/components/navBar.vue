@@ -18,10 +18,10 @@
                 </div>
             </div>
             <div class="right-side">
-                <i @click="menuOpened()" class="fas fa-search"></i>
-                <i @click="menuOpened()" class="fas fa-shopping-cart"></i>
-                <i @click="menuOpened()" class="far fa-heart"></i>
-                <i @click="menuOpened()" class="fas fa-user-circle"></i>
+                <i @click="menuOpened('Search')"  class="fas fa-search"></i>
+                <i @click="menuOpened('Chart')"  class="fas fa-shopping-cart"></i>
+                <i @click="menuOpened('Favourite')"  class="far fa-heart"></i>
+                <i @click="menuOpened('Admin')"  class="fas fa-user-circle"></i>
             </div>
         </div>
     </header>
@@ -43,9 +43,9 @@ export default {
         state : this.$store.state
     }
   },methods: {
-    menuOpened (){
-        this.state.menuVisible = true;
-        this.$store.commit('openMenu')
+    menuOpened (current){
+    this.state.menuVisible = true;
+    this.$store.commit('openMenu',current);
     }
   },
 }
