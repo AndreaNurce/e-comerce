@@ -1,7 +1,6 @@
 <template>
 <div>
      <i @click="closeSideMenu()"   class="fas fa-times"></i>
-        <log-in v-if="store.currentNav == 'Admin'" />
         <ul v-if="store.currentNav == 'Menu'">
             <li >Home</li>
             <li >Shop</li>
@@ -14,11 +13,8 @@
 </template>
 
 <script>
-import logIn from "@/components/logIn.vue"
 export default {
-    components:{
-        logIn,
-    },
+
     data() {
         return {
             store : this.$store.state

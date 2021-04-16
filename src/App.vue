@@ -44,8 +44,7 @@ export default {
 
 <style scoped lang="scss">
 #wrapper{
-  height: 200vh;
-  background-color:red;
+
   transition:$hoverEffect;
   margin-top:80px;
 }
