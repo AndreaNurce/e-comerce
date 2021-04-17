@@ -21,7 +21,7 @@
                 <i @click="menuOpened('Search')"  class="fas fa-search"></i>
                 <i @click="menuOpened('Chart')"  class="fas fa-shopping-cart"></i>
                 <i @click="menuOpened('Favourite')"  class="far fa-heart"></i>
-                <i @click="router.push('/login')"  class="fas fa-user-circle"></i>
+                <i @click="router.push('/admin')"  class="fas fa-user-circle"></i>
             </div>
         </div>
     </header>
