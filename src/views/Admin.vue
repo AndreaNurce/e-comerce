@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import collections from '@/components/collections.vue'
-import landing from '@/components/landing.vue'
-import products from '@/components/products.vue'
+import collections from '@/components/admin/collections.vue'
+import landing from '@/components/admin/landing.vue'
+import products from '@/components/admin/products.vue'
 export default {
     data() {
         return {
