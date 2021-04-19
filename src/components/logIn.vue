@@ -1,17 +1,41 @@
 <template>
 <div class="main">
     <p class="sign" align="center">Sign in</p>
-    <form class="form1">
-        <input class="un" type="email" align="center" placeholder="Email" required>
-        <input class="pass" type="password" align="center" placeholder="Password" required >
-        <button class="submit" align="center">Sign in</button>
+    <form class="form1"  @submit.prevent="signIn">
+        <input v-model="email" class="un" type="email" align="center" placeholder="Email" required>
+        <input v-model="password" class="pass" type="password" align="center" placeholder="Password" required >
+        <button class="submit" align="center"> <p>Sign in</p> </button>
+        <div v-if="loading" class="loader">
+            <div class="loader-wheel"></div>
+            <div class="loader-text"></div>
+        </div>
     </form>
 </div>
 </template>
 
+<script>
+import axios from 'axios'
+export default {
+    data() {
+        return {
+            email: '',
+            password : '',
+            loading :false,
+        }
+    },methods:{
+        signIn(){
+            this.loading = true;
+            axios.get('http://localhost:3000/').then(function(){this.loading = false}.bind(this))
+            // setTimeout(function(){this.loading = false}.bind(this),3000)
+        }
+
+    }
+}
+</script>
 
 
-<style lang="scss" scoped>
+
+<style  scoped>
     .main {
         background-color: #FFFFFF;
         width: 400px;
@@ -93,6 +117,7 @@
         margin-left: 35%;
         font-size: 13px;
         box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+        outline : none;
     }
     
     .forgot {
@@ -106,5 +131,57 @@
         color: #E1BEE7;
         text-decoration: none
     }
+    .loader {
+    margin-top: 20px;
+    width: 50px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  transform-origin: center;
+
+}
+
+.loader-wheel {
+  animation: spin 1s infinite linear;
+  border: 2px solid rgba(216, 215, 215, 0.5);
+  border-left: 2px solid black;
+  border-radius: 100px;
+  height: 50px;
+  margin-bottom: 10px;
+  width: 50px;
+}
+
+.loader-text {
+  color:black;
+  font-family: arial, sans-serif;
+}
+
+.loader-text:after {
+  content: 'Loading';
+  animation: load 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load {
+  0% {
+    content: 'Loading';
+  }
+  33% {
+    content: 'Loading.';
+  }
+  67% {
+    content: 'Loading..';
+  }
+  100% {
+    content: 'Loading...';
+  }
+}
     
 </style>

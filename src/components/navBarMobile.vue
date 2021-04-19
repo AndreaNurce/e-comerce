@@ -39,6 +39,8 @@ export default {
     menuOpened (current){
         this.state.menuVisible = true;
         this.$store.commit('openMenu',current);
+    },signIn(){
+        
     }
   },
 
