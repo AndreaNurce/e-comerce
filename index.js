@@ -3,7 +3,6 @@ const cors = require("cors");
 const app = express();
 require("dotenv").config();
 const bodyParser = require("body-parser");
-const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser');
 
