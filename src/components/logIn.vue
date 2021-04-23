@@ -25,6 +25,9 @@
         <div class="loader-wheel"></div>
         <div class="loader-text"></div>
       </div>
+      <div v-if="error" class="error-message">
+        <h3>{{message}}</h3>
+      </div>
     </form>
   </div>
 </template>
@@ -37,25 +40,41 @@ export default {
       email: "",
       password: "",
       loading: false,
+      error: false,
+      message:""
     };
   },
   methods: {
     signIn() {
       this.loading = true;
+      this.error = false;
+      var url = new URL("http://localhost:8081/login"),
+        params = { email: this.email, password: this.password };
+      Object.keys(params).forEach((key) =>
+        url.searchParams.append(key, params[key])
+      );
 
-      fetch('http://localhost:8081/login',{
+      fetch(url, {
         method: "GET",
-        credentials: 'include'
-        }).then(
-          function () {
+        credentials: "include",
+      })
+        .then(
+          function (res) {
             this.loading = false;
+            if (res.status != 200) {
+              this.message = 'ERROR! Wrong email or password'
+              this.error = true;
+            }
           }.bind(this)
-        ).catch(
+        )
+        .catch(
           function () {
             this.loading = false;
+              this.message = 'ERROR! Something went wrong'
+            this.error = true;
           }.bind(this)
         );
-       
+
       // axios
       //   .post("http://localhost:3000/signin",{withCredentials: true} ,{
       //     params: {
@@ -146,7 +165,7 @@ form.form1 {
   cursor: pointer;
   border-radius: 5em;
   color: #fff;
-  background: linear-gradient(to right, #9c27b0, #e040fb);
+  background-color: #8c55aa;
   border: 0;
   padding-left: 40px;
   padding-right: 40px;
@@ -176,6 +195,14 @@ a {
   margin-left: 50%;
   transform: translateX(-50%);
   transform-origin: center;
+}
+.error-message {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+  text-align: center;
+padding : 10px 5px;
+margin:35px 0;
+color: rgb(255, 80, 80);
+
 }
 
 .loader-wheel {
