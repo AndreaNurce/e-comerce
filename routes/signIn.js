@@ -8,12 +8,11 @@ router.get("/", async (req, res) => {
     password: req.query.password,
     email: req.query.email,
   });
-
   if (admin !== null) {
     jwt.sign(
       {
-        email: "andrea-dibra@hotmail.com",
-        is_admin: true,
+        email: admin.email,
+        is_admin: admin.is_admin,
       },
       process.env.TOKEN_SECRET,
       { expiresIn: "24h" },
