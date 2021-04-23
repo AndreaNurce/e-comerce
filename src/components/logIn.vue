@@ -18,6 +18,8 @@
         placeholder="Password"
         required
       />
+      <button></button>
+      <h1></h1>
       <button class="submit" align="center"><p>Sign in</p></button>
       <div v-if="loading" class="loader">
         <div class="loader-wheel"></div>
@@ -28,7 +30,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 export default {
   data() {
     return {
@@ -40,19 +42,31 @@ export default {
   methods: {
     signIn() {
       this.loading = true;
-      axios
-        .get("http://localhost:3000/signin/", {
-          params: {
-            email: this.email,
-            password: this.password,
-          },
-        })
-        .then(
-          function (res) {
+
+      fetch('http://localhost:8081/login',{
+        method: "GET",
+        credentials: 'include'
+        }).then(
+          function () {
             this.loading = false;
-            console.log(res);
+          }.bind(this)
+        ).catch(
+          function () {
+            this.loading = false;
           }.bind(this)
         );
+       
+      // axios
+      //   .post("http://localhost:3000/signin",{withCredentials: true} ,{
+      //     params: {
+      //       email: this.email,
+      //       password: this.password,
+      //     }})
+      //   .then(
+      //     function () {
+      //       this.loading = false;
+      //     }.bind(this)
+      //   );
       // setTimeout(function(){this.loading = false}.bind(this),3000)
     },
   },
