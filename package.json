@@ -4,12 +4,21 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "server": "cls && nodemon index.js -q",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.5",
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.5",
+    "path": "^0.12.7",
     "register-service-worker": "^1.7.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
