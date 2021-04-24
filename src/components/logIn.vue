@@ -20,7 +20,7 @@
       />
       <button></button>
       <h1></h1>
-      <button class="submit" align="center"><p>Sign in</p></button>
+      <button class="submit" align="center"><p>Log in</p></button>
       <div v-if="loading" class="loader">
         <div class="loader-wheel"></div>
         <div class="loader-text"></div>
@@ -64,6 +64,8 @@ export default {
             if (res.status != 200) {
               this.message = 'ERROR! Wrong email or password'
               this.error = true;
+            }else{
+              this.$router.push('/admin');
             }
           }.bind(this)
         )

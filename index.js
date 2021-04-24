@@ -39,15 +39,15 @@ const corsConfig = function (req, res, next) {
   next();
 };
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(corsConfig)
-app.use(cookieParser());
 
 
 const signin = require("./routes/signIn");
-const test = require("./routes/test");
+const isAuth = require("./routes/isAuth");
 app.use("/login", signin);
-app.use("/test", test);
+app.use("/isAuth", isAuth);
 
 app.listen(8081, () => console.log(`Example app listening on port ${process.env.PORT}!`));
