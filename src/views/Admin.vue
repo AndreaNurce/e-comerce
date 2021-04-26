@@ -8,8 +8,8 @@
       </ul>
     </div>
     <div class="handler-wrapper">
-      <collections v-if="editor == 'Landing'" />
-      <landing v-if="editor == 'Collections'" />
+      <collections v-if="editor == 'Collections'" />
+      <landing v-if="editor == 'Landing'" />
       <products v-if="editor == 'Products'" />
     </div>
   </section>
@@ -22,7 +22,7 @@ import products from "@/components/admin/products.vue";
 export default {
   data() {
     return {
-      editor: null,
+      editor: "Landing",
     };
   },
   components: {
@@ -34,31 +34,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.menu {
-min-width:200px;
-  width: 20%;
-  height: calc(100vh - 80px);
-  display: flex;
-  justify-content: center;
-  ul {
-        display: flex;
-  align-items: center;
-  flex-direction: column;
-    padding: 10px;
+section {
+      display: flex;
 
-    li {
-      cursor: pointer;
-      padding: 8px;
-      list-style: none;
-      font-family:Verdana, Geneva, Tahoma, sans-serif;
-      overflow: hidden;
-    width: 90%;
+  .menu {
+    position:sticky;
+    top:70px;
+    min-width: 200px;
+    width: 20%;
+    height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    ul {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      padding: 10px;
 
+      li {
+        cursor: pointer;
+        padding: 8px;
+        list-style: none;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        overflow: hidden;
+        width: 90%;
+      }
     }
   }
-}
 
-.handler-wrapper {
-  width: 80%;
+  .handler-wrapper {
+    width: 80%;
+  }
 }
 </style>>

@@ -5,6 +5,7 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cookieParser = require('cookie-parser');
+const fromFile = require('express-fileupload');
 
 //connecting to database
 mongoose
@@ -43,11 +44,17 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(corsConfig)
+app.use(fromFile())
+
 
 
 const signin = require("./routes/signIn");
 const isAuth = require("./routes/isAuth");
+const fileTest = require("./routes/test-files");
 app.use("/login", signin);
 app.use("/isAuth", isAuth);
-
+app.use("/test-files", fileTest);
+app.get('/',(req,res)=>{
+  res.send('hello')
+})
 app.listen(8081, () => console.log(`Example app listening on port ${process.env.PORT}!`));
