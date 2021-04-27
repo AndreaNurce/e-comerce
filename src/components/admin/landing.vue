@@ -35,12 +35,12 @@ export default {
     },
   },created(){
   axios.get("http://localhost:8081/test-files").then(function(res)  {
-    console.log(res.data.items[0].img.data.data);
+    console.log(res);
 
-    let base64String = btoa(
-            String.fromCharCode.apply(null, new Uint8Array(res.data.items[0].img.data.data))
-          );
-   this.image =  "data:image/jpg;base64," + base64String;
+  //   let base64String = btoa(
+  //           String.fromCharCode.apply(null, new Uint8Array(res.data.items[0].img.data.data))
+  //         );
+   this.image =  res.data;
     
     }.bind(this));
   }
