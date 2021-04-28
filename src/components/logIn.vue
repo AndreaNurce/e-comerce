@@ -21,10 +21,7 @@
       <button></button>
       <h1></h1>
       <button class="submit" align="center"><p>Log in</p></button>
-      <div v-if="loading" class="loader">
-        <div class="loader-wheel"></div>
-        <div class="loader-text"></div>
-      </div>
+        <loading v-if="loading" />
       <div v-if="error" class="error-message">
         <h3>{{message}}</h3>
       </div>
@@ -34,7 +31,11 @@
 
 <script>
 // import axios from "axios";
+import loading from "@/components/loading.vue"
 export default {
+  components:{
+    loading
+  },
   data() {
     return {
       email: "",
@@ -191,13 +192,7 @@ a {
   color: #e1bee7;
   text-decoration: none;
 }
-.loader {
-  margin-top: 20px;
-  width: 50px;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  transform-origin: center;
-}
+
 .error-message {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
   text-align: center;
@@ -207,47 +202,4 @@ color: rgb(255, 80, 80);
 
 }
 
-.loader-wheel {
-  animation: spin 1s infinite linear;
-  border: 2px solid rgba(216, 215, 215, 0.5);
-  border-left: 2px solid black;
-  border-radius: 100px;
-  height: 50px;
-  margin-bottom: 10px;
-  width: 50px;
-}
-
-.loader-text {
-  color: black;
-  font-family: arial, sans-serif;
-}
-
-.loader-text:after {
-  content: "Loading";
-  animation: load 2s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes load {
-  0% {
-    content: "Loading";
-  }
-  33% {
-    content: "Loading.";
-  }
-  67% {
-    content: "Loading..";
-  }
-  100% {
-    content: "Loading...";
-  }
-}
 </style>
