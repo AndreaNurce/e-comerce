@@ -50,10 +50,10 @@ app.use(fromFile())
 
 const signin = require("./routes/signIn");
 const isAuth = require("./routes/isAuth");
-const fileTest = require("./routes/test-files");
+const landingPage = require("./routes/landing-page");
 app.use("/login", signin);
 app.use("/isAuth", isAuth);
-app.use("/test-files", fileTest);
+app.use("/landing-page", landingPage);
 app.get('/',(req,res)=>{
   res.send('hello')
 })
