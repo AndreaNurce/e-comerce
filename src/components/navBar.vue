@@ -8,7 +8,7 @@
           </div>
           <div class="menu">
             <ul>
-              <li>Home</li>
+              <li @click="router.push('/')">Home</li>
               <li>Shop</li>
               <li>Features</li>
               <li>Blog</li>
@@ -48,6 +48,7 @@ export default {
     menuOpened(current) {
       this.state.menuVisible = true;
       this.$store.commit("openMenu", current);
+
     },
   },
 };
@@ -60,6 +61,7 @@ header {
   width: 100%;
   top: 0;
   background-color: white;
+  z-index: 1;
   .wrapper {
     @include flex(space-between);
     width: 90%;

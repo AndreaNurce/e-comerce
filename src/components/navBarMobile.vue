@@ -8,7 +8,7 @@
           </div>
         </div>
         <div class="right-side">
-          <i @click="menuOpened('Search')" class="fas fa-search"></i>
+          <i @click="menuOpened('Search') "  class="fas fa-search"></i>
           <i @click="menuOpened('Chart')" class="fas fa-shopping-cart"></i>
           <i @click="menuOpened('Favourite')" class="far fa-heart"></i>
           <i @click="router.push('/admin')" class="fas fa-user-circle"></i>
@@ -50,6 +50,7 @@ header {
   width: 100%;
   top: 0;
   background-color: white;
+  z-index:1;
   @include flex(center);
   .wrapper {
     @include flex(space-between);

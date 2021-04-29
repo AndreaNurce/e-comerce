@@ -2,7 +2,7 @@
   <div>
     <i @click="closeSideMenu()" class="fas fa-times"></i>
     <ul v-if="store.currentNav == 'Menu'">
-      <li>Home</li>
+      <li  @click="router.push('/'),closeSideMenu()">Home</li>
       <li>Shop</li>
       <li>Features</li>
       <li>Blog</li>
@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       store: this.$store.state,
+      router : this.$router
     };
   },
   methods: {
@@ -28,6 +29,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+div{
 ul {
   margin-top: 20px;
   li {
@@ -57,5 +59,6 @@ i {
   &:hover {
     color: $iconHover;
   }
+}
 }
 </style>

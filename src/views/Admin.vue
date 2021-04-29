@@ -35,11 +35,11 @@ export default {
 
 <style lang="scss" scoped>
 section {
-      display: flex;
+  display: flex;
 
   .menu {
-    position:sticky;
-    top:70px;
+    position: sticky;
+    top: 70px;
     min-width: 200px;
     width: 20%;
     height: calc(100vh - 80px);
@@ -49,7 +49,7 @@ section {
       display: flex;
       align-items: center;
       flex-direction: column;
-      padding: 10px;
+      padding: 5%;
 
       li {
         cursor: pointer;
