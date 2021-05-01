@@ -1,8 +1,8 @@
 <template>
-  <div class="sceleton-container">
+  <div class="skeleton-container">
     <div>
       <div
-        class="sceleton-wrapper"
+        class="skeleton-wrapper"
         v-for="(quantity, index) in quantitys"
         :key="index"
         :style="{ width: contentWidth, height: contentHeight }"
@@ -28,12 +28,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.sceleton-container {
+.skeleton-container {
   div {
       display : flex;
       flex-wrap: wrap;
       justify-content: space-evenly;
-    .sceleton-wrapper {
+    .skeleton-wrapper {
       background-color: red;
        margin :30px;
 

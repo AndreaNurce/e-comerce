@@ -1,6 +1,6 @@
 <template>
   <section>
-    <sceleton v-if="loading" contentWidth="100%" :quantitys='number' contentHeight="80vh"/>
+    <skeleton v-if="loading" contentWidth="90%" :quantitys='number' contentHeight="80vh"/>
 
     <div v-if="!loading">
     <img :src="'data:image/jpg;base64,' + image" alt="" />
@@ -17,17 +17,17 @@
 
 <script>
 import axios from "axios";
-import sceleton from '@/components/sceleton.vue'
+import skeleton from '@/components/skeleton.vue'
 export default {
   components:{
-    sceleton
+    skeleton
   },
   data() {
     return {
       image: "",
       tittle: "",
       subTittle: "",
-      loading:false,
+      loading:true,
       number : 1
     };
   },
@@ -46,7 +46,7 @@ export default {
     },
   },
   created() {
-    this.getData();
+    // this.getData();
   },
 };
 </script>
