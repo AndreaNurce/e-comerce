@@ -27,7 +27,7 @@ export default {
       image: "",
       tittle: "",
       subTittle: "",
-      loading:true,
+      loading:false,
       number : 1
     };
   },
@@ -46,7 +46,7 @@ export default {
     },
   },
   created() {
-    // this.getData();
+    this.getData();
   },
 };
 </script>
