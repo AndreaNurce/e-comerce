@@ -1,5 +1,8 @@
 <template>
   <section>
+    <sceleton v-if="loading" contentWidth="100%" :quantitys='number' contentHeight="80vh"/>
+
+    <div v-if="!loading">
     <img :src="'data:image/jpg;base64,' + image" alt="" />
     <div class="container">
       <div>
@@ -8,26 +11,36 @@
         <a>Shop now</a>
       </div>
     </div>
+       </div>
   </section>
 </template>
 
 <script>
 import axios from "axios";
+import sceleton from '@/components/sceleton.vue'
 export default {
+  components:{
+    sceleton
+  },
   data() {
     return {
       image: "",
       tittle: "",
       subTittle: "",
+      loading:false,
+      number : 1
     };
   },
   methods: {
     async getData() {
+      this.loading =true;
       await axios.get("http://localhost:8081/landing-page").then(
         function (res) {
           this.image = res.data.image;
           this.tittle = res.data.tittle;
           this.subTittle = res.data.subTittle;
+      this.loading =false;
+
         }.bind(this)
       );
     },
