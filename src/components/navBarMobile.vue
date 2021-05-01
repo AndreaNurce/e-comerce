@@ -76,6 +76,9 @@ header {
         &:hover {
           color: $iconHover;
         }
+        &:last-child  {
+          margin-right:-20px
+        }
       }
       .fa-times {
         font-size: 25.5px;
