@@ -100,8 +100,8 @@ header {
   right: 0;
   justify-content: center;
   top: 80px;
-  margin-right: -200px;
-  width: 200px;
+  margin-right: -300px;
+  width: 300px;
   background-color: white;
   height: 100%;
   transition: $hoverEffect;
