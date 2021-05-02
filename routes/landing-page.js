@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const landingPageUploads = require("../models/landingPage");
+const authenticateToken = require("../middleWares/jwt");
 
-router.post("/update", async (req, res) => {
+
+router.post("/update",authenticateToken, async (req, res) => {
   if (req.body.tittle) {
     await landingPageUploads
       .findOneAndUpdate({ tittle: req.body.tittle })
