@@ -8,10 +8,13 @@
           </div>
         </div>
         <div class="right-side">
-          <i @click="menuOpened('Search') "  class="fas fa-search"></i>
+          <i @click="menuOpened('Search')" class="fas fa-search"></i>
           <i @click="menuOpened('Chart')" class="fas fa-shopping-cart"></i>
           <i @click="menuOpened('Favourite')" class="far fa-heart"></i>
-          <i @click="router.push('/admin')" class="fas fa-user-circle"></i>
+          <i
+            @click="router.push('/admin'), store.commit('closeMenu')"
+            class="fas fa-user-circle"
+          ></i>
           <i @click="menuOpened('Menu')" class="fas fa-bars"></i>
         </div>
       </div>
@@ -32,6 +35,7 @@ export default {
     return {
       state: this.$store.state,
       router: this.$router,
+      store: this.$store,
     };
   },
   methods: {
@@ -50,7 +54,7 @@ header {
   width: 100%;
   top: 0;
   background-color: white;
-  z-index:1;
+  z-index: 1;
   @include flex(center);
   .wrapper {
     @include flex(space-between);
@@ -76,8 +80,8 @@ header {
         &:hover {
           color: $iconHover;
         }
-        &:last-child  {
-          margin-right:-10px
+        &:last-child {
+          margin-right: -10px;
         }
       }
       .fa-times {

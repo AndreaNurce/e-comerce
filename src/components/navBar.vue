@@ -21,7 +21,10 @@
           <i @click="menuOpened('Search')" class="fas fa-search"></i>
           <i @click="menuOpened('Chart')" class="fas fa-shopping-cart"></i>
           <i @click="menuOpened('Favourite')" class="far fa-heart"></i>
-          <i @click="router.push('/admin')" class="fas fa-user-circle"></i>
+          <i
+            @click="router.push('/admin'), store.commit('closeMenu')"
+            class="fas fa-user-circle"
+          ></i>
         </div>
       </div>
     </header>
@@ -42,13 +45,13 @@ export default {
     return {
       state: this.$store.state,
       router: this.$router,
+      store: this.$store,
     };
   },
   methods: {
     menuOpened(current) {
       this.state.menuVisible = true;
       this.$store.commit("openMenu", current);
-
     },
   },
 };
@@ -98,8 +101,8 @@ header {
         &:hover {
           color: $iconHover;
         }
-                &:last-child  {
-          margin-right:-10px
+        &:last-child {
+          margin-right: -10px;
         }
       }
     }
