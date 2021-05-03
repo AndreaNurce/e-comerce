@@ -24,6 +24,7 @@ router.post("/update", authenticateToken, async (req, res) => {
 
 router.get("/", (req, res) => {
   landingPageUploads.findOne({}, (err, item) => {
+    console.log(item)
     if (err) {
       res.status(500).send("An error occurred", err);
     } else {

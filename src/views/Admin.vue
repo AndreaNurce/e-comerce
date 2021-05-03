@@ -65,7 +65,7 @@ section {
       display: flex;
       align-items: center;
       flex-direction: column;
-      padding: 5%;
+      padding: 18px;
       width: 100%;
       li {
         cursor: pointer;
