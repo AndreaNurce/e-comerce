@@ -4,6 +4,7 @@ const store = createStore({
   state: {
     menuVisible: false,
     currentNav: "",
+    collectionView :'',
   },
   mutations: {
     openMenu(state, current) {

@@ -2,9 +2,24 @@
   <section>
     <div class="menu">
       <ul>
-        <li @click="editor = 'Landing'">Landing Page</li>
-        <li @click="editor = 'Collections'">Collections</li>
-        <li @click="editor = 'Products'">Products</li>
+        <li
+          @click="editor = 'Landing'"
+          :class="{ active: editor == 'Landing' }"
+        >
+          Landing Page
+        </li>
+        <li
+          @click="editor = 'Collections'"
+          :class="{ active: editor == 'Collections' }"
+        >
+          Collections
+        </li>
+        <li
+          @click="editor = 'Products'"
+          :class="{ active: editor == 'Products' }"
+        >
+          Products
+        </li>
       </ul>
     </div>
     <div class="handler-wrapper">
@@ -16,7 +31,7 @@
 </template>
 
 <script>
-import collections from "@/components/admin/collections.vue";
+import collections from "@/components/admin/collections/collections.vue";
 import landing from "@/components/admin/landing.vue";
 import products from "@/components/admin/products.vue";
 export default {
@@ -38,6 +53,7 @@ section {
   display: flex;
 
   .menu {
+    background-color: rgb(122, 145, 180);
     position: sticky;
     top: 70px;
     min-width: 200px;
@@ -50,7 +66,7 @@ section {
       align-items: center;
       flex-direction: column;
       padding: 5%;
-
+      width: 100%;
       li {
         cursor: pointer;
         padding: 8px;
@@ -58,6 +74,8 @@ section {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         overflow: hidden;
         width: 90%;
+        color: white;
+        font-weight: 500;
       }
     }
   }
@@ -65,5 +83,9 @@ section {
   .handler-wrapper {
     width: 80%;
   }
+}
+
+.active {
+  background-color: rgb(93, 116, 150);
 }
 </style>>

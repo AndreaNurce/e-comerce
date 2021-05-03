@@ -51,9 +51,11 @@ app.use(fromFile())
 const signin = require("./routes/signIn");
 const isAuth = require("./routes/isAuth");
 const landingPage = require("./routes/landing-page");
+const collections = require("./routes/collection");
 app.use("/login", signin);
 app.use("/isAuth", isAuth);
 app.use("/landing-page", landingPage);
+app.use("/collections", collections);
 app.get('/',(req,res)=>{
   res.send('hello')
 })

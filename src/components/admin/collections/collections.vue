@@ -1,0 +1,25 @@
+<template>
+  <div class="collection-form">
+    <div class="controller">
+      <controller />
+    </div>
+    <div class="view">
+      <View />
+    </div>
+  </div>
+</template>
+
+<script>
+import View from "@/components/admin/collections/View.vue";
+import controller from "@/components/admin/collections/controller.vue";
+export default {
+  components: {
+    View,
+    controller,
+  },
+};
+</script>
+
+
+<style lang="scss" scoped>
+</style>

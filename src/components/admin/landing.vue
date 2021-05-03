@@ -68,7 +68,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 5% 0;
+  margin: 5vh 0;
   form {
     padding: 20px;
     width: 340px;
