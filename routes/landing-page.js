@@ -24,11 +24,9 @@ router.post("/update", authenticateToken, async (req, res) => {
 
 router.get("/", (req, res) => {
   landingPageUploads.findOne({}, (err, item) => {
-    console.log(item)
     if (err) {
       res.status(500).send("An error occurred", err);
     } else {
-      // console.log(items[0].img.data.toString('base64'));
       let image = item.img.data.toString("base64");
       let tittle = item.tittle;
       let subTittle = item.subTittle;
