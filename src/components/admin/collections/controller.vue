@@ -1,15 +1,21 @@
 <template>
   <div class="controller-wrapper">
     <div class="container-wrapper" v-for="(data, index) in res" :key="index">
-      <div class="container">
+      <div v-if="!loading" class="container">
         <p>{{ data.name }}</p>
         <img :src="'data:image/jpg;base64,' + data.image" alt="" />
       </div>
-      <div class="buttons">
+      <div v-if="!loading" class="buttons">
         <p><i class="fas fa-minus"></i></p>
         <p><i class="fas fa-pencil-alt"></i></p>
       </div>
     </div>
+    <skeleton
+      v-if="loading"
+      contentWidth="240px"
+      :quantitys="number"
+      contentHeight="240px"
+    />
     <div @click="showNewItemContoller()" class="new-collection">
       <i class="fas fa-plus"></i>
     </div>
@@ -18,10 +24,17 @@
 
 <script>
 import axios from "axios";
+import skeleton from "@/components/skeleton.vue";
+
 export default {
+  components: {
+    skeleton,
+  },
   data() {
     return {
       res: Object,
+      loading: true,
+      number: 3,
     };
   },
   methods: {
@@ -32,6 +45,7 @@ export default {
       await axios.get("http://localhost:8081/collections").then(
         function (res) {
           this.res = res.data;
+          this.loading = false;
         }.bind(this)
       );
     },
@@ -45,16 +59,17 @@ export default {
 <style lang="scss" scoped>
 .controller-wrapper {
   font-family: $font1;
-  display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  flex-wrap: nowrap;
   overflow-x: auto;
+  display: flex;
+
   .container-wrapper {
     .container {
       text-align: center;
       padding: 15px;
-      margin: 0px 8px 8px 8px;
+      margin: 0px 15px 8px 15px;
       background-color: rgb(248, 248, 248);
       p {
         padding-bottom: 8px;
@@ -65,17 +80,16 @@ export default {
       }
     }
     .buttons {
-      display:flex;
+      display: flex;
       justify-content: space-around;
       p:last-child {
-        background-color: rgb(188, 213, 255);
-       
+        background-color: rgb(179, 208, 253);
       }
       p {
         background-color: rgb(255, 190, 190);
         padding: 8px 16px;
         border-radius: 20px;
-        cursor:pointer;
+        cursor: pointer;
       }
     }
   }

@@ -22,4 +22,9 @@ export default {
 
 
 <style lang="scss" scoped>
+.collection-form {
+  .view {
+    margin: 40px 0;
+  }
+}
 </style>

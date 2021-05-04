@@ -7,17 +7,17 @@ router.post("/update", authenticateToken, async (req, res) => {
   if (req.body.tittle) {
     await landingPageUploads
       .findOneAndUpdate({ tittle: req.body.tittle })
-      .catch((err) => res.status(500).send("An error occurred", err));
+      .catch((err) => res.status(500).send("An error occurred",));
   }
   if (req.body.subTittle) {
     await landingPageUploads
       .findOneAndUpdate({ subTittle: req.body.subTittle })
-      .catch((err) => res.status(500).send("An error occurred", err));
+      .catch((err) => res.status(500).send("An error occurred"));
   }
   if (req.files) {
     await landingPageUploads
       .findOneAndUpdate({ img: { data: req.files.image.data } })
-      .catch((err) => res.status(500).send("An error occurred", err));
+      .catch((err) => res.status(500).send("An error occurred"));
   }
   res.status(200).end();
 });
@@ -25,7 +25,7 @@ router.post("/update", authenticateToken, async (req, res) => {
 router.get("/", (req, res) => {
   landingPageUploads.findOne({}, (err, item) => {
     if (err) {
-      res.status(500).send("An error occurred", err);
+      res.status(500).send("An error occurred");
     } else {
       let image = item.img.data.toString("base64");
       let tittle = item.tittle;

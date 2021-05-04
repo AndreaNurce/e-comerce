@@ -55,7 +55,7 @@ section {
   .menu {
     background-color: rgb(122, 145, 180);
     position: sticky;
-    top: 70px;
+    top: 80px;
     min-width: 200px;
     width: 20%;
     height: calc(100vh - 80px);
