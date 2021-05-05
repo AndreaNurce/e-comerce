@@ -17,6 +17,9 @@ export default {
     View,
     controller,
   },
+  unmounted() {
+    this.$store.state.collectionView = ""
+  },
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="view-wrapper">
-    <div
+    <!-- <div
       v-if="state.collectionView == 'editCollection'"
       class="collection-editor"
     >
@@ -24,7 +24,7 @@
         <h1>Edit Collection</h1>
         <form @submit.prevent="saveCollection('collection/update')">
           <input
-            required
+           
             placeholder="Set a new name"
             v-model="name"
             type="text"
@@ -33,7 +33,7 @@
           />
           <br />
           <input
-            required
+           
             placeholder="Set a new description"
             v-model="tittle"
             type="text"
@@ -43,12 +43,11 @@
           <br /><br />
           <label for="files" class="btn">Select a new Image</label>
           <input
-            required
+            
             id="files"
             style="visibility: hidden"
             ref="file"
             type="file"
-            name="image"
           />
           <br /><br />
           <button align="center">Save changes</button>
@@ -95,23 +94,29 @@
           <loading v-if="loading" />
         </form>
       </div>
-    </div>
+    </div> -->
+    
+
+    <editCollection/>
+    <newCollection/>
+    
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import loading from "@/components/loading.vue";
+import editCollection from '@/components/admin/collections/editCollection.vue'
+import newCollection from '@/components/admin/collections/newCollection.vue'
 export default {
   components: {
-    loading,
+    editCollection,
+    newCollection,
   },
   data() {
     return {
       state: this.$store.state,
       name: "",
       tittle: "",
-      image: "",
       loading: false,
     };
   },
@@ -150,7 +155,7 @@ export default {
   font-family: $font1;
   .new-collection-editor {
     padding: 30px;
-    h2 {
+    h1 {
       text-align: center;
     }
     .collection-form {

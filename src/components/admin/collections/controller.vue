@@ -67,7 +67,6 @@ export default {
           return item;
         }
       });
-      console.log(this.$store.state.currentCollectionEditing[0] , this.res.collectionData);
     },
     async getCollections() {
       await axios.get("http://localhost:8081/collections").then(
