@@ -5,7 +5,8 @@ const store = createStore({
     menuVisible: false,
     currentNav: "",
     collectionView :'',
-    collectionData : Object
+    collectionData : Object,
+    currentCollectionEditing : null
   },
   mutations: {
     openMenu(state, current) {
