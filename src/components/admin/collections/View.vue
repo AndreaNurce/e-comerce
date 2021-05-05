@@ -12,7 +12,7 @@
       <div class="collection-form">
         <form @submit.prevent="saveCollection()">
           <input
-          required
+            required
             placeholder="Set a  name"
             v-model="name"
             type="text"
@@ -21,7 +21,7 @@
           />
           <br />
           <input
-          required
+            required
             placeholder="Set a description"
             v-model="tittle"
             type="text"
@@ -31,7 +31,7 @@
           <br /><br />
           <label for="files" class="btn">Select Image</label>
           <input
-          required
+            required
             id="files"
             style="visibility: hidden"
             ref="file"
@@ -65,25 +65,28 @@ export default {
   },
   methods: {
     async saveCollection() {
-      if(this.$refs.file.files[0]){
-      this.loading = true;
-      let fd = new FormData();
+      if (this.$refs.file.files[0]) {
+        this.loading = true;
+        let fd = new FormData();
 
-      fd.append("name", this.name);
-      fd.append("tittle", this.tittle);
-      fd.append("image", this.$refs.file.files[0]);
-      await axios
-        .post("http://localhost:8081/collections/collection", fd, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then(
-          function () {
-            this.loading = false;
-          }.bind(this)
-        );
-        }
+        fd.append("name", this.name);
+        fd.append("tittle", this.tittle);
+        fd.append("image", this.$refs.file.files[0]);
+        await axios
+          .post("http://localhost:8081/collections/collection", fd, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then(
+            function (res) {
+              this.$store.state.collectionData = res.data;
+      // this.$store.commit("getData", res.data);
+
+              this.loading = false;
+            }.bind(this)
+          );
+      }
     },
   },
 };

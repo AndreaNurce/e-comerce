@@ -5,6 +5,7 @@ const store = createStore({
     menuVisible: false,
     currentNav: "",
     collectionView :'',
+    collectionData : Object
   },
   mutations: {
     openMenu(state, current) {
@@ -15,6 +16,9 @@ const store = createStore({
     closeMenu() {
       document.querySelector("#menu").style.marginRight = "-300px";
       document.querySelector("#wrapper").style.marginLeft = "0px";
+    },
+    getData(state , data) {
+      state.collectionData = data
     },
   },
 });

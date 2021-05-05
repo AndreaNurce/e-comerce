@@ -1,12 +1,12 @@
 <template>
   <div class="controller-wrapper">
-    <div class="container-wrapper" v-for="(data, index) in res" :key="index">
+    <div class="container-wrapper" v-for="(data, index) in res.collectionData" :key="index">
       <div v-if="!loading" class="container">
         <p>{{ data.name }}</p>
         <img :src="'data:image/jpg;base64,' + data.image" alt="" />
       </div>
       <div v-if="!loading" class="buttons">
-        <p><i class="fas fa-minus"></i></p>
+        <p @click="dropCollection(data._id)"><i class="fas fa-minus"></i></p>
         <p><i class="fas fa-pencil-alt"></i></p>
       </div>
     </div>
@@ -32,19 +32,30 @@ export default {
   },
   data() {
     return {
-      res: Object,
+      res : this.$store.state,
       loading: true,
       number: 3,
     };
   },
   methods: {
+    async dropCollection(id){
+      await axios.delete('http://localhost:8081/collections/dropCollection',{params :{ 
+        id
+      }
+      }).then(
+        function (res) {
+                  this.res.collectionData = res.data;
+
+        }.bind(this)
+      );
+    },
     showNewItemContoller() {
       this.$store.state.collectionView = "newCollection";
     },
     async getCollections() {
       await axios.get("http://localhost:8081/collections").then(
         function (res) {
-          this.res = res.data;
+         this.res.collectionData = res.data;
           this.loading = false;
         }.bind(this)
       );
