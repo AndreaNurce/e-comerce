@@ -43,7 +43,7 @@ $subTittleColor: #cac9c9;
     justify-content: space-evenly;
     .skeleton-wrapper {
       background-color: $backgroundColor;
-      margin: 0 15px;
+      margin: 15px;
       @include flex(center);
       animation: effect1 1s ease-in-out infinite;
       .main-content {
@@ -58,7 +58,6 @@ $subTittleColor: #cac9c9;
           height: 8%;
           width: 25%;
           animation: effect2 1s ease-in-out infinite;
-
           background-color: $subTittleColor;
           &:last-child {
             margin: 30px 30px 0 30px;
