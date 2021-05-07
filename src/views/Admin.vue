@@ -3,22 +3,37 @@
     <div class="menu">
       <ul>
         <li
-          @click="editor = 'Landing'"
+          @click="(editor = 'Landing'), (subList = false), handleArrow()"
           :class="{ active: editor == 'Landing' }"
         >
           Landing Page
         </li>
         <li
-          @click="editor = 'Collections'"
+          @click="(editor = 'Collections'), (subList = false), handleArrow()"
           :class="{ active: editor == 'Collections' }"
         >
           Collections
         </li>
         <li
-          @click="editor = 'Products'"
+          @click.self="(editor = 'Products'), handleSubList(), handleArrow()"
           :class="{ active: editor == 'Products' }"
         >
           Products
+          <i id="arrow" class="fas fa-caret-down"></i>
+          <ul v-if="subList" class="subList">
+            <li
+              @click="state.productsMenu = 'newProduct'"
+              :class="{ activeTag: state.productsMenu == 'newProduct' }"
+            >
+              New Product
+            </li>
+            <li
+              @click="state.productsMenu = 'editProduct'"
+              :class="{ activeTag: state.productsMenu == 'editProduct' }"
+            >
+              Edit Product
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -33,17 +48,35 @@
 <script>
 import collections from "@/components/admin/collections/collections.vue";
 import landing from "@/components/admin/landing.vue";
-import products from "@/components/admin/products.vue";
+import products from "@/components/admin/products/products.vue";
 export default {
   data() {
     return {
+      state: this.$store.state,
       editor: "Landing",
+      subList: false,
     };
   },
   components: {
     collections,
     landing,
     products,
+  },
+  methods: {
+    handleSubList() {
+      this.subList = !this.subList;
+      this.state.productsMenu =null;
+
+    },
+    handleArrow() {
+      this.state.productsMenu =null;
+      let arrow = document.querySelector("#arrow");
+      if (this.subList) {
+        arrow.style.transform = "rotate(180deg)";
+      } else {
+        arrow.style.transform = "rotate(0deg)";
+      }
+    },
   },
 };
 </script>
@@ -76,6 +109,14 @@ section {
         width: 90%;
         color: white;
         font-weight: 500;
+        i {
+          position: absolute;
+          right: 30px;
+        }
+        ul {
+          transition: $hoverEffect;
+          overflow: hidden;
+        }
       }
     }
   }
@@ -87,5 +128,9 @@ section {
 
 .active {
   background-color: rgb(93, 116, 150);
+}
+.activeTag {
+  background-color: rgb(57, 83, 119);
+
 }
 </style>>

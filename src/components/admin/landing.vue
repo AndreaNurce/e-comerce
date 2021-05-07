@@ -1,6 +1,7 @@
 <template>
   <div class="landing-form">
     <form @submit.prevent="updateContent()">
+    <h1> Edit  Landing Page</h1>
       <input
         placeholder="Set a new tittle"
         v-model="tittle"
@@ -73,6 +74,9 @@ export default {
     padding: 20px;
     width: 340px;
     text-align: center;
+    h1{
+      margin-bottom:40px;
+    }
     input[type="text"] {
       padding: 6px 16px;
       width: 250px;
