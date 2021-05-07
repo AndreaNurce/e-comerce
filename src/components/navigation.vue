@@ -30,6 +30,7 @@ export default {
 
 <style scoped lang="scss">
 div{
+  z-index:2;
 ul {
   margin-top: 20px;
   li {

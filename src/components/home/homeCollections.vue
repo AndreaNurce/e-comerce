@@ -56,12 +56,15 @@ export default {
 <style scoped lang="scss">
 section {
   margin: 100px 0;
+  width:100vw;
   .container-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     padding: 5px;
     .container {
+  margin: 25px 0;
+
       height: 250px;
       width: 370px;
       position: relative;

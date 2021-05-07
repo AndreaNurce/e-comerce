@@ -1,13 +1,7 @@
 <template>
-    <div class="products-form">
+<section>
 
-        <form>
-            <input type="text">
-            <input type="text">
-            <input type="file">
-        </form>
-        
-    </div>
+</section>
 </template>
 
 <script>

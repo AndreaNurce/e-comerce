@@ -120,5 +120,6 @@ header {
   background-color: white;
   height: 100%;
   transition: $hoverEffect;
+  z-index: 2;
 }
 </style>
