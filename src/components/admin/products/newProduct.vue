@@ -76,7 +76,14 @@
             <input type="checkbox" id="L" value="L" v-model="checkedColors" />
             <label for="L"> L </label>
           </div>
-
+      <div>
+        <span class="Collection">Collection : </span>
+      <select v-model="collection">
+      <option v-for="(coll, index) in collectionNames" :value="coll"
+              v-bind:key="index">{{coll}}
+      </option>
+    </select>
+</div>
           <label for="files" class="btn">Select Image</label>
           <button align="center">Save</button>
           <input
@@ -110,6 +117,8 @@ export default {
       loading: false,
       checkedColors: [],
       checkedSizes: [],
+      collectionNames : [],
+      collection : ''
     };
   },
   methods: {
@@ -133,8 +142,9 @@ export default {
 
         fd.append("name", this.name);
         fd.append("tittle", this.tittle);
-        fd.append("sizes", this.checkedSizes);
         fd.append("colors", this.checkedColors);
+        fd.append("sizes", this.checkedSizes);
+        fd.append("collection", this.collection);
         fd.append("image", this.$refs.file.files[0]);
         await axios
           .post(`http://localhost:8081/products/product`, fd, {
@@ -156,8 +166,15 @@ export default {
             }.bind(this)
           );
       }
-    },
-  },
+    
+  },async getCollections(){
+      await axios.get('http://localhost:8081/collections/list').then(function(res){
+        this.collectionNames = res.data
+      }.bind(this))
+    }
+  },created(){
+    this.getCollections()
+  }
 };
 </script>
 
@@ -193,6 +210,9 @@ export default {
         }
         .Sizes {
           margin-left: -55px;
+        }
+        .Collection {
+          margin-left: -98px;
         }
       }
       .btn {
