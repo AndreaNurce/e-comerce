@@ -16,15 +16,16 @@
             <input
               required
               placeholder="Set a description"
-              v-model="tittle"
+              v-model="description"
               type="textbox"
-              name="tittle"
+              name="description"
               autocomplete="off"
             />
           </div>
           <br />
           <div>
             <input
+              v-model="price"
               required
               placeholder="Set a price"
               type="text"
@@ -32,6 +33,7 @@
               @keypress="isNumber($event)"
             />
             <input
+              v-model="quantity"
               required
               placeholder="Set quantity"
               type="text"
@@ -69,21 +71,25 @@
 
           <div>
             <span class="Sizes">Sizes : </span>
-            <input type="checkbox" id="S" value="S" v-model="checkedColors" />
+            <input type="checkbox" id="S" value="S" v-model="checkedSizes" />
             <label for="S"> S </label>
-            <input type="checkbox" id="M" value="M" v-model="checkedColors" />
+            <input type="checkbox" id="M" value="M" v-model="checkedSizes" />
             <label for="M"> M </label>
-            <input type="checkbox" id="L" value="L" v-model="checkedColors" />
+            <input type="checkbox" id="L" value="L" v-model="checkedSizes" />
             <label for="L"> L </label>
           </div>
-      <div>
-        <span class="Collection">Collection : </span>
-      <select v-model="collection">
-      <option v-for="(coll, index) in collectionNames" :value="coll"
-              v-bind:key="index">{{coll}}
-      </option>
-    </select>
-</div>
+          <div>
+            <span class="Collection">Collection : </span>
+            <select v-model="collection">
+              <option
+                v-for="(coll, index) in collectionNames"
+                :value="coll"
+                v-bind:key="index"
+              >
+                {{ coll }}
+              </option>
+            </select>
+          </div>
           <label for="files" class="btn">Select Image</label>
           <button align="center">Save</button>
           <input
@@ -112,13 +118,14 @@ export default {
     return {
       state: this.$store.state,
       name: "",
-      tittle: "",
+      description: "",
       price: Number,
       loading: false,
+      quantity: Number,
       checkedColors: [],
       checkedSizes: [],
-      collectionNames : [],
-      collection : ''
+      collectionNames: [],
+      collection: "",
     };
   },
   methods: {
@@ -141,13 +148,15 @@ export default {
         let fd = new FormData();
 
         fd.append("name", this.name);
-        fd.append("tittle", this.tittle);
+        fd.append("description", this.description);
         fd.append("colors", this.checkedColors);
+        fd.append("price", this.price);
+        fd.append("quantity", this.quantity);
         fd.append("sizes", this.checkedSizes);
         fd.append("collection", this.collection);
         fd.append("image", this.$refs.file.files[0]);
         await axios
-          .post(`http://localhost:8081/products/product`, fd, {
+          .post(`http://localhost:8081/products`, fd, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
@@ -166,15 +175,18 @@ export default {
             }.bind(this)
           );
       }
-    
-  },async getCollections(){
-      await axios.get('http://localhost:8081/collections/list').then(function(res){
-        this.collectionNames = res.data
-      }.bind(this))
-    }
-  },created(){
-    this.getCollections()
-  }
+    },
+    async getCollections() {
+      await axios.get("http://localhost:8081/collections/list").then(
+        function (res) {
+          this.collectionNames = res.data;
+        }.bind(this)
+      );
+    },
+  },
+  created() {
+    this.getCollections();
+  },
 };
 </script>
 
@@ -188,9 +200,8 @@ export default {
   .new-product-editor {
     h1 {
       text-align: center;
-      margin-bottom:40px;
-      font-size : 30px;
-    
+      margin-bottom: 40px;
+      font-size: 30px;
     }
     form {
       display: flex;

@@ -3,8 +3,6 @@ const router = express.Router();
 const Collection = require("../models/collection");
 const authenticateToken = require("../middleWares/jwt");
 
-
-
 function getCollection(obj) {
   let array = [];
   obj.forEach(function(item) {
@@ -48,7 +46,7 @@ router.post("/collection/update", authenticateToken, async (req, res) => {
     ).catch(() => res.status(500).send("An error occurred"));
 
     let obj = await Collection.find();
-  res.send(getCollection(obj));
+    res.send(getCollection(obj));
   }
   if (req.body.tittle) {
     await Collection.updateOne(
@@ -57,7 +55,7 @@ router.post("/collection/update", authenticateToken, async (req, res) => {
     ).catch(() => res.status(500).send("An error occurred"));
 
     let obj = await Collection.find();
-  res.send(getCollection(obj));
+    res.send(getCollection(obj));
   }
   if (req.files) {
     await Collection.updateOne(
@@ -66,7 +64,7 @@ router.post("/collection/update", authenticateToken, async (req, res) => {
     ).catch(() => res.status(500).send("An error occurred"));
 
     let obj = await Collection.find();
-  res.send(getCollection(obj));
+    res.send(getCollection(obj));
   }
 });
 
@@ -74,8 +72,6 @@ router.get("/", async (req, res) => {
   let obj = await Collection.find();
   res.send(getCollection(obj));
 });
-
-
 
 router.get("/list", async (req, res) => {
   let obj = await Collection.find();
