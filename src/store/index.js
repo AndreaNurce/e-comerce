@@ -7,7 +7,7 @@ const store = createStore({
     collectionView :'',
     collectionData : Object,
     currentCollectionEditing : null,
-    productsMenu : null,
+    productsMenu : '',
   },
   mutations: {
     openMenu(state, current) {
