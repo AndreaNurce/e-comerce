@@ -92,6 +92,7 @@
           </div>
           <label for="files" class="btn">Select Image</label>
           <button align="center">Save</button>
+          <loading v-if="loading" />
           <input
             required
             id="files"
@@ -100,7 +101,6 @@
             type="file"
             name="image"
           />
-          <loading v-if="loading" />
         </form>
       </div>
     </div>
@@ -153,7 +153,7 @@ export default {
         fd.append("price", this.price);
         fd.append("quantity", this.quantity);
         fd.append("sizes", this.checkedSizes);
-        fd.append("collection", this.collection);
+        fd.append("inCollection", this.collection);
         fd.append("image", this.$refs.file.files[0]);
         await axios
           .post(`http://localhost:8081/products`, fd, {

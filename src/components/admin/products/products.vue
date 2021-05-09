@@ -1,24 +1,37 @@
 <template>
-<section>
+  <section>
+    <div v-if="(editor = 'Products' && state.productsMenu == null)">
+      <h1>heloooooo from products page</h1>
+    </div>
     <newProduct v-if="state.productsMenu == 'newProduct'" />
-</section>
+    <editProduct v-if="state.productsMenu == 'editProduct'" />
+  </section>
 </template>
 
 <script>
-import newProduct from '@/components/admin/products/newProduct.vue'
+import axios from "axios";
+import newProduct from "@/components/admin/products/newProduct.vue";
+import editProduct from "@/components/admin/products/editProducts.vue";
 export default {
-    components:{
-        newProduct
-    },data(){
-        return {
-            state : this.$store.state
-        }
-    }
-    
-}
+  components: {
+    newProduct,
+    editProduct,
+  },
+  data() {
+    return {
+      state: this.$store.state,
+    };
+  },
+  methods: {
+    async getProducts() {
+      await axios.get("http://localhost:8081/products").then(res => console.log(res));
+    },
+  },created(){
+      this.getProducts();
+  }
+};
 </script>
 
 
 <style lang="scss" scoped>
-    
 </style>
