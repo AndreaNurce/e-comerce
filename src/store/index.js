@@ -7,6 +7,8 @@ const store = createStore({
     collectionView :'',
     collectionData : Object,
     currentCollectionEditing : null,
+    productData : Object,
+    currentProductEditing : null,
     productsMenu : '',
   },
   mutations: {
