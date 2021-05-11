@@ -3,37 +3,22 @@
     <div class="menu">
       <ul>
         <li
-          @click="(editor = 'Landing'), (subList = false), handleArrow()"
+          @click="editor = 'Landing'"
           :class="{ active: editor == 'Landing' }"
         >
           Landing Page
         </li>
         <li
-          @click="(editor = 'Collections'), (subList = false), handleArrow()"
+          @click="editor = 'Collections'"
           :class="{ active: editor == 'Collections' }"
         >
           Collections
         </li>
         <li
-          @click.self="(editor = 'Products'), handleSubList(), handleArrow()"
+          @click.self="editor = 'Products'"
           :class="{ active: editor == 'Products' }"
         >
           Products
-          <i id="arrow" class="fas fa-caret-down"></i>
-          <ul v-if="subList" class="subList">
-            <li
-              @click="state.productsMenu = 'newProduct'"
-              :class="{ activeTag: state.productsMenu == 'newProduct' }"
-            >
-              New Product
-            </li>
-            <li
-              @click="state.productsMenu = 'editProduct'"
-              :class="{ activeTag: state.productsMenu == 'editProduct' }"
-            >
-              Edit Product
-            </li>
-          </ul>
         </li>
       </ul>
     </div>
@@ -61,22 +46,6 @@ export default {
     collections,
     landing,
     products,
-  },
-  methods: {
-    handleSubList() {
-      this.subList = !this.subList;
-      this.state.productsMenu =null;
-
-    },
-    handleArrow() {
-      this.state.productsMenu =null;
-      let arrow = document.querySelector("#arrow");
-      if (this.subList) {
-        arrow.style.transform = "rotate(180deg)";
-      } else {
-        arrow.style.transform = "rotate(0deg)";
-      }
-    },
   },
 };
 </script>

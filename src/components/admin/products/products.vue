@@ -1,11 +1,8 @@
 <template>
-  <section>
-    <div v-if="(editor = 'Products' && state.productsMenu == null)">
-      <h1>heloooooo from products page</h1>
-    </div>
-    <newProduct v-if="state.productsMenu == 'newProduct'" />
-    <editProduct v-if="state.productsMenu == 'editProduct'" />
-  </section>
+  <div>
+    <newProduct/>
+    <editProduct/>
+  </div>
 </template>
 
 <script>
@@ -34,4 +31,7 @@ export default {
 
 
 <style lang="scss" scoped>
+section{
+  all : none;
+}
 </style>
