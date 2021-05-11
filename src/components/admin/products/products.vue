@@ -1,10 +1,6 @@
 <template>
   <div class="wrapper">
-        <div
-      class="container-wrapper"
-      v-for="(data, index) in res"
-      :key="index"
-    >
+    <div class="container-wrapper" v-for="(data, index) in res" :key="index">
       <div v-if="!loading" class="container">
         <p>{{ data.name }}</p>
         <img :src="'data:image/jpg;base64,' + data.image" alt="" />
@@ -16,14 +12,17 @@
         </p>
       </div>
     </div>
-        <skeleton
+    <div  v-if="!loading" @click="editor='new'" class="new-product">
+      <i class="fas fa-plus"></i>
+    </div>
+    <skeleton
       v-if="loading"
       contentWidth="240px"
       :quantitys="number"
       contentHeight="290px"
     />
-    <newProduct v-if="show"/>
-    <editProduct v-if="show"/>
+    <newProduct v-if="editor == 'new'" />
+    <editProduct v-if="show" />
   </div>
 </template>
 
@@ -36,38 +35,41 @@ export default {
   components: {
     newProduct,
     editProduct,
-    skeleton
+    skeleton,
   },
   data() {
     return {
       state: this.$store.state,
-      res : null,
-      show : false,
-      loading:true,
-      number : 8
+      res: null,
+      show: false,
+      loading: true,
+      number: 8,
+      editor : ''
     };
   },
   methods: {
     async getProducts() {
-      await axios.get("http://localhost:8081/products").then(function (res){
-        this.res = res.data
-        this.loading = false;
-        console.log(res.data)
-      }.bind(this));
+      await axios.get("http://localhost:8081/products").then(
+        function (res) {
+          this.res = res.data;
+          this.loading = false;
+        }.bind(this)
+      );
     },
-  },created(){
-      this.getProducts();
-  }
+  },
+  created() {
+    this.getProducts();
+  },
 };
 </script>
 
 
 <style lang="scss" scoped>
-.wrapper{
-      display:flex;
-      flex-wrap : wrap;
-    .container-wrapper {
-      padding:  0 15px 30px 15px;
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  .container-wrapper {
+    padding: 0 15px 30px 15px;
     .container {
       padding: 15px;
       text-align: center;
@@ -93,6 +95,19 @@ export default {
         border-radius: 20px;
         cursor: pointer;
       }
+    }
+  }
+  .new-product {
+    background-color: rgb(248, 248, 248);
+    width: 210px;
+    height: 283px;
+    margin: 0px 30px 0px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    .fas {
+      font-size: 40px;
     }
   }
 }
