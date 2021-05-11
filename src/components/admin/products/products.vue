@@ -6,8 +6,8 @@
         <img :src="'data:image/jpg;base64,' + data.image" alt="" />
       </div>
       <div v-if="!loading" class="buttons">
-        <p @click="dropCollection(data.id)"><i class="fas fa-minus"></i></p>
-        <p @click="showCollectionEditor(data.id)">
+        <p @click="dropProduct(data.id)"><i class="fas fa-minus"></i></p>
+        <p @click="showProductEditor(data.id)">
           <i class="fas fa-pencil-alt"></i>
         </p>
       </div>
@@ -55,7 +55,13 @@ export default {
           this.loading = false;
         }.bind(this)
       );
-    },
+    }, async dropProduct(id){
+      await axios.delete('http://localhost:8081/products/dropProduct', {params : {
+        id
+      }}).then(function(res){
+        this.res = res.data
+      }.bind(this))
+    }
   },
   created() {
     this.getProducts();

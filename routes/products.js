@@ -40,6 +40,12 @@ router.post("/", authenticateToken, async (req, res) => {
   res.send();
 });
 
+router.delete("/dropProduct", authenticateToken, async (req, res) => {
+  await Products.deleteOne({ _id: req.query.id });
+  let obj =  await Products.find();
+  res.send(getProducts(obj))
+});
+
 router.get('/',async (req,res)=>{
 let obj =  await Products.find();
 res.send(getProducts(obj))
