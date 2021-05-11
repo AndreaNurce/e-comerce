@@ -17,7 +17,6 @@ function getProducts(obj) {
       inCollection: item.inCollection,
       name: item.name,
     };
-
     array.push(object);
   });
   return array;
@@ -37,18 +36,19 @@ router.post("/", authenticateToken, async (req, res) => {
     img: { data: files.image.data },
   });
   await object.save();
-  res.send();
+  let obj = await Products.find();
+  res.send(getProducts(obj));
 });
 
 router.delete("/dropProduct", authenticateToken, async (req, res) => {
   await Products.deleteOne({ _id: req.query.id });
-  let obj =  await Products.find();
-  res.send(getProducts(obj))
+  let obj = await Products.find();
+  res.send(getProducts(obj));
 });
 
-router.get('/',async (req,res)=>{
-let obj =  await Products.find();
-res.send(getProducts(obj))
-})
+router.get("/", async (req, res) => {
+  let obj = await Products.find();
+  res.send(getProducts(obj));
+});
 
 module.exports = router;

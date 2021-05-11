@@ -1,6 +1,10 @@
 <template>
   <div class="wrapper">
-    <div class="container-wrapper" v-for="(data, index) in res" :key="index">
+    <div
+      class="container-wrapper"
+      v-for="(data, index) in state.productData"
+      :key="index"
+    >
       <div v-if="!loading" class="container">
         <p>{{ data.name }}</p>
         <img :src="'data:image/jpg;base64,' + data.image" alt="" />
@@ -12,7 +16,7 @@
         </p>
       </div>
     </div>
-    <div  v-if="!loading" @click="editor='new'" class="new-product">
+    <div v-if="!loading" @click="editor = 'new'" class="new-product">
       <i class="fas fa-plus"></i>
     </div>
     <skeleton
@@ -44,24 +48,33 @@ export default {
       show: false,
       loading: true,
       number: 8,
-      editor : ''
+      editor: "",
     };
   },
   methods: {
     async getProducts() {
       await axios.get("http://localhost:8081/products").then(
         function (res) {
-          this.res = res.data;
+          this.$store.state.productData = res.data;
+
           this.loading = false;
+          console.log(res);
         }.bind(this)
       );
-    }, async dropProduct(id){
-      await axios.delete('http://localhost:8081/products/dropProduct', {params : {
-        id
-      }}).then(function(res){
-        this.res = res.data
-      }.bind(this))
-    }
+    },
+    async dropProduct(id) {
+      await axios
+        .delete("http://localhost:8081/products/dropProduct", {
+          params: {
+            id,
+          },
+        })
+        .then(
+          function (res) {
+            this.$store.state.productData = res.data;
+          }.bind(this)
+        );
+    },
   },
   created() {
     this.getProducts();

@@ -138,6 +138,7 @@ export default {
         charCode !== 46
       ) {
         evt.preventDefault();
+        return false;
       } else {
         return true;
       }
