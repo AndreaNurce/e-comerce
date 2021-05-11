@@ -16,7 +16,7 @@
         </p>
       </div>
     </div>
-    <div v-if="!loading" @click="editor = 'new'" class="new-product">
+    <div v-if="!loading" @click="(editor = 'new' ,displayEditor =true )" class="new-product">
       <i class="fas fa-plus"></i>
     </div>
     <skeleton
@@ -25,8 +25,13 @@
       :quantitys="number"
       contentHeight="290px"
     />
-    <newProduct v-if="editor == 'new'" />
     <editProduct v-if="show" />
+
+    <div @click.self="displayEditor=false" v-if="displayEditor" class="editor">
+      <div class="editor-container">
+        <newProduct v-if="editor == 'new'" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -49,6 +54,7 @@ export default {
       loading: true,
       number: 8,
       editor: "",
+      displayEditor : false
     };
   },
   methods: {
@@ -74,6 +80,9 @@ export default {
             this.$store.state.productData = res.data;
           }.bind(this)
         );
+    },
+    showProductEditor() {
+      this.displayEditor = true;
     },
   },
   created() {
@@ -127,6 +136,21 @@ export default {
     cursor: pointer;
     .fas {
       font-size: 40px;
+    }
+  }
+  .editor {
+    position: fixed;
+    height: 90%;
+    width: 80%;
+    background-color: rgba(0, 0, 0, 0.548);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .editor-container {
+      background-color: white;
+      height: 80%;
+      width: 80%;
     }
   }
 }
