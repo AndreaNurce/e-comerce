@@ -153,9 +153,15 @@ export default {
         fd.append("colors", this.checkedColors);
         fd.append("price", this.price);
         fd.append("quantity", this.quantity);
-        fd.append("sizes", this.checkedSizes);
         fd.append("inCollection", this.collection);
         fd.append("image", this.$refs.file.files[0]);
+
+        this.checkedColors.forEach((item) => {
+          fd.append("colors", item);
+        });
+        this.checkedSizes.forEach((item) => {
+          fd.append("sizes", item);
+        });
         await axios
           .post(`http://localhost:8081/products`, fd, {
             headers: {
