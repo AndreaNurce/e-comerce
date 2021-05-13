@@ -10,7 +10,7 @@
         <img :src="'data:image/jpg;base64,' + data.image" alt="" />
       </div>
       <div v-if="!loading" class="buttons">
-        <p @click="dropProduct(data.id)"><i class="fas fa-minus"></i></p>
+        <p @click="dropProduct(data.id) "><i class="fas fa-minus"></i></p>
         <p @click="showProductEditor(data.id)">
           <i class="fas fa-pencil-alt"></i>
         </p>
@@ -25,11 +25,12 @@
       :quantitys="number"
       contentHeight="290px"
     />
-    <editProduct v-if="show" />
+
 
     <div @click.self="displayEditor=false" v-if="displayEditor" class="editor">
       <div class="editor-container">
         <newProduct v-if="editor == 'new'" />
+            <editProduct  v-if="editor == 'edit'"  />
       </div>
     </div>
   </div>
@@ -64,7 +65,6 @@ export default {
           this.$store.state.productData = res.data;
 
           this.loading = false;
-          console.log(res);
         }.bind(this)
       );
     },
@@ -81,8 +81,14 @@ export default {
           }.bind(this)
         );
     },
-    showProductEditor() {
+    showProductEditor(id) {
       this.displayEditor = true;
+      this.editor = 'edit';
+      this.state.currentProductEditing = this.state.productData.filter(function(item){
+        if(item.id == id) return item
+      })
+
+
     },
   },
   created() {

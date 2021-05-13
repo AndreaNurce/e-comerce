@@ -8,7 +8,7 @@ const store = createStore({
     collectionData : Object,
     currentCollectionEditing : null,
     productData : Object,
-    currentProductEditing : null,
+    currentProductEditing : Object,
     productsMenu : '',
   },
   mutations: {
