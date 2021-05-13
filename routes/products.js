@@ -40,6 +40,28 @@ router.post("/", authenticateToken, async (req, res) => {
   res.send(getProducts(obj));
 });
 
+router.post("/product/update", authenticateToken, async (req, res) => {
+  let { body } = req;
+  let { files } = req;
+  let bodyObj ={
+    name: body.name,
+    description: body.description,
+    color: body.colors,
+    sizes: body.sizes,
+    price: body.price,
+    quantity: body.quantity,
+    inCollection: body.inCollection,
+  };
+  if(files != null){
+    bodyObj.img = { data: files.image.data };
+  }
+  let message;
+   await Products.findOneAndUpdate({_id : body.id},bodyObj).then(message  = "Updated Succesfully").catch((err) => res.end(err))
+  let obj = await Products.find();
+  let data = getProducts(obj);
+  res.send({data,message});
+});
+
 router.delete("/dropProduct", authenticateToken, async (req, res) => {
   await Products.deleteOne({ _id: req.query.id });
   let obj = await Products.find();

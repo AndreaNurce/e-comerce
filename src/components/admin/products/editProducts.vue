@@ -2,7 +2,7 @@
   <div class="edit-product-wrapper">
     <div class="edit-product-section">
       <div class="image-editor">
-        <img :src="'data:image/jpg;base64,' + state.image" alt="" /><br />
+        <img :src="'data:image/jpg;base64,' +state.image" alt="" /><br />
         <label for="files" class="btn">Select Image</label>
         <input
           required
@@ -20,8 +20,22 @@
           placeholder="New description"
           type="textBox"
         />
+
+        <input type="number" v-model="price" placeholder="New Price" />
+        <input type="number" v-model="quantity" placeholder="Change quantity" />
+
         <div>
-          <span class="colors">Colors : </span>
+          <select v-model="collection">
+            <option
+              v-for="(coll, index) in collectionNames"
+              :value="coll"
+              v-bind:key="index"
+            >
+              {{ coll }}
+            </option>
+          </select>
+        </div>
+        <div>
           <input type="checkbox" id="Red" value="Red" v-model="checkedColors" />
           <label for="Red"> Red </label>
           <input
@@ -40,7 +54,6 @@
           <label for="White"> White </label>
         </div>
         <div>
-          <span class="Sizes">Sizes : </span>
           <input type="checkbox" id="S" value="S" v-model="checkedSizes" />
           <label for="S"> S </label>
           <input type="checkbox" id="M" value="M" v-model="checkedSizes" />
@@ -48,25 +61,11 @@
           <input type="checkbox" id="L" value="L" v-model="checkedSizes" />
           <label for="L"> L </label>
         </div>
-        <input type="number" v-model="price" placeholder="New Price" />
-        <input type="number" v-model="quantity" placeholder="Change quantity" />
-
-        <div>
-          <span class="Collection">Collection : </span>
-          <select v-model="collection">
-            <option
-              v-for="(coll, index) in collectionNames"
-              :value="coll"
-              v-bind:key="index"
-            >
-              {{ coll }}
-            </option>
-          </select>
-        </div>
       </div>
     </div>
-      <button>Save Changes</button>
-      <loading v-if="loading" />
+    <br />
+
+    <button @click.prevent="updateProduct()">{{ message }}</button>
   </div>
 </template>
 
@@ -84,6 +83,8 @@ export default {
       collection: String,
       collectionNames: Array,
       state: this.$store.state.currentProductEditing[0],
+      image : null ,
+      message: "Save Changes",
     };
   },
   methods: {
@@ -93,6 +94,40 @@ export default {
           this.collectionNames = res.data;
         }.bind(this)
       );
+    },
+    async updateProduct() {
+      if(!this.$refs.file.files[0]){
+        this.message = ""
+      }
+      this.message = "loading";
+      let fd = new FormData();
+      fd.append("name", this.name);
+      fd.append("id", this.state.id);
+      fd.append("description", this.description);
+      fd.append("price", this.price);
+      fd.append("quantity", this.quantity);
+      fd.append("inCollection", this.collection);
+      fd.append("image",this.$refs.file.files[0]);
+
+      this.checkedColors.forEach((item) => {
+        fd.append("colors", item);
+      });
+      this.checkedSizes.forEach((item) => {
+        fd.append("sizes", item);
+      });
+
+      await axios
+        .post("http://localhost:8081/products/product/update",fd )
+        .then(
+          function (res) {
+            console.log(res)
+            this.message = res.data.message;
+            this.state.image = res.data.data[0].image
+            setTimeout(function () {
+              this.message = "Save Changes";
+            }.bind(this), 3000);
+          }.bind(this)
+        );
     },
   },
   created() {
@@ -109,36 +144,56 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.edit-product-wrapper{
-      button {
-      padding: 12px 16px;
-      text-align: center;
-      border: none;
-      cursor: pointer;
-      background-color: $iconHover;
-      color: white;
-      font-weight: 800;
-      margin-left :50%;
-      transform : translateX(-50%)
-    }
-.edit-product-section {
-  @include flex(space-evenly);
-  .image-editor {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .btn {
-      padding: 13px;
-      font-size: 14px;
-      margin: 15px;
-      border: 1px dotted;
-      margin: 10px;
-    }
-    img {
-      width: 200px;
-    }
-
+.edit-product-wrapper {
+  button {
+    margin: 5px 0;
+    padding: 12px 16px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    background-color: $iconHover;
+    color: white;
+    font-weight: 800;
+    margin-left: 50%;
+    transform: translateX(-50%);
   }
-}
+  .edit-product-section {
+    @include flex(space-around);
+    padding: 13px;
+    .image-editor {
+      width: 50%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .btn {
+        padding: 13px;
+        font-size: 14px;
+        margin: 15px;
+        border: 1px dotted;
+        margin: 10px;
+      }
+      img {
+        width: 200px;
+      }
+    }
+    .form {
+      width: 50%;
+
+      input[type="text"],
+      input[type="textbox"],
+      input[type="number"],
+      select {
+        padding: 6px 16px;
+        font-size: 18px;
+        width: 50%;
+        margin: 5px 0;
+        text-align: center;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
 }
 </style>
