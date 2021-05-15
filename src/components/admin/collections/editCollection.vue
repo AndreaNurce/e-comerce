@@ -1,28 +1,21 @@
 <template>
   <div class="view-wrapper">
-    <div
-      v-if="state.collectionView == 'editCollection'"
-      class="collection-editor"
-    >
+        <h1>Edit Collection</h1>
+
+    <div class="collection-editor">
       <div class="collection-preview">
-        <h2>
-          Collectin Name :
-          <span>{{ state.currentCollectionEditing[0].name }} </span>
-        </h2>
-        <h2>
-          Collectin Tittle :
-          <span> {{ state.currentCollectionEditing[0].tittle }} </span>
-        </h2>
         <img
           :src="
             'data:image/jpg;base64,' + state.currentCollectionEditing[0].image
           "
           alt=""
         />
+        <br /><br />
+        <label for="files" class="btn">Select a new Image</label>
+        <input id="files" style="visibility: hidden" ref="file" type="file" />
       </div>
       <div class="collection-form">
-        <h1>Edit Collection</h1>
-        <form @submit.prevent="saveCollection()">
+        <form >
           <input
             placeholder="Set a new name"
             v-model="name"
@@ -39,36 +32,29 @@
             autocomplete="off"
           />
           <br /><br />
-          <label for="files" class="btn">Select a new Image</label>
-          <input id="files" style="visibility: hidden" ref="file" type="file" />
-          <br /><br />
-          <button align="center">Save changes</button>
-          <loading v-if="loading" />
         </form>
       </div>
     </div>
+    <button @click.prevent="saveCollection()" align="center">{{message}}</button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import loading from "@/components/loading.vue";
 export default {
-  components: {
-    loading,
-  },
   data() {
     return {
       state: this.$store.state,
       name: "",
       tittle: "",
       loading: false,
+      message : 'Save',
+
     };
   },
   methods: {
     async saveCollection() {
-      if (this.name || this.tittle || this.$refs.file.files[0]) {
-        this.loading = true;
+        this.message = "Loading...";
         let fd = new FormData();
 
         fd.append("name", this.name);
@@ -83,6 +69,8 @@ export default {
           })
           .then(
             function (res) {
+              this.message = "Updated Succesfully";
+
               this.$store.state.collectionData = res.data;
               // this.$store.commit("getData", res.data);
 
@@ -93,68 +81,50 @@ export default {
                   }
                 }
               );
-
-              this.loading = false;
+              setTimeout(
+                function () {
+                  this.message = "Save Changes";
+                }.bind(this),
+                3000
+              );
             }.bind(this)
-          ).catch(function(){
-              this.loading = false
-          }.bind(this));
+          )
+          .catch(
+            function () {
+              this.message = "Error";
+              setTimeout(
+                function () {
+                  this.message = "Save Changes";
+                }.bind(this),
+                3000
+              );
+            }.bind(this)
+          );
       }
-    },
-  }
+  },
+  created() {
+    this.name = this.state.currentCollectionEditing[0].name;
+    this.tittle = this.state.currentCollectionEditing[0].tittle;
+  },
 };
 </script>
 
 
 <style lang="scss" scoped>
-.collection-editor {
-  padding: 30px;
-  display: flex;
-  justify-content: space-evenly;
-
-  .collection-preview {
+.view-wrapper {
+  .collection-editor {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    & > * {
-      margin: 20px;
-    }
-    h2 {
-      span {
-        font-size: 80%;
-        font-family: "italic";
+    justify-content: space-evenly;
+    .collection-preview {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      & > * {
+        margin: 20px;
       }
-    }
-    img {
-      width: 200px;
-    }
-  }
-  .collection-form {
-    font-family: $font1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    h1 {
-      text-align: center;
-    }
-    form {
-      padding: 20px;
-      width: 340px;
-      text-align: center;
-      input[type="text"] {
-        padding: 6px 16px;
-        width: 250px;
-        font-size: 18px;
-        margin: 15px;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        background-color: none;
-        text-align: center;
-        &:focus {
-          outline: none;
-        }
+
+      img {
+        width: 200px;
       }
       label {
         padding: 13px;
@@ -162,16 +132,51 @@ export default {
         margin: 15px;
         border: 1px dotted;
       }
-      button {
-        padding: 12px 16px;
+    }
+    .collection-form {
+      font-family: $font1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      h1 {
         text-align: center;
-        border: none;
-        cursor: pointer;
-        background-color: $iconHover;
-        color: white;
-        font-weight: 800;
+      }
+      form {
+        padding: 20px;
+        width: 340px;
+        text-align: center;
+        input[type="text"] {
+          padding: 6px 16px;
+          width: 250px;
+          font-size: 18px;
+          margin: 15px;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+          background-color: none;
+          text-align: center;
+          &:focus {
+            outline: none;
+          }
+        }
       }
     }
+  }
+  button {
+    padding: 12px 16px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    background-color: $iconHover;
+    color: white;
+    font-weight: 800;
+    margin-left : 50%;
+    transform : translateX(-50%);
+  }
+  h1{
+    text-align:center;
+    padding : 20px;
   }
 }
 </style>

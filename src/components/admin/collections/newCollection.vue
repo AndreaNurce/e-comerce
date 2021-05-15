@@ -1,9 +1,6 @@
 <template>
   <div class="view-wrapper">
-    <div
-      v-if="state.collectionView == 'newCollection'"
-      class="new-collection-editor"
-    >
+    <div class="new-collection-editor">
       <h1>New Collection</h1>
       <div class="collection-form">
         <form @submit.prevent="saveCollection()">
@@ -35,7 +32,7 @@
             name="image"
           />
           <br /><br />
-          <button align="center">Save</button>
+          <button align="center">{{ message }}</button>
           <loading v-if="loading" />
         </form>
       </div>
@@ -55,13 +52,14 @@ export default {
       state: this.$store.state,
       name: "",
       tittle: "",
+      message: "Save",
       loading: false,
     };
   },
   methods: {
     async saveCollection() {
       if (this.$refs.file.files[0]) {
-        this.loading = true;
+        this.message = "Loading";
         let fd = new FormData();
 
         fd.append("name", this.name);
@@ -75,14 +73,29 @@ export default {
           })
           .then(
             function (res) {
+              this.message = "Saved Succesfully";
+              this.name = "";
+              this.tittle = "";
               this.$store.state.collectionData = res.data;
-              // this.$store.commit("getData", res.data);
-
-              this.loading = false;
+              setTimeout(
+                function () {
+                  this.message = "Save";
+                }.bind(this),
+                3000
+              );
             }.bind(this)
-          ).catch(function(){
-              this.loading = false
-          }.bind(this));
+          )
+          .catch(
+            function () {
+              this.message = "Error";
+              setTimeout(
+                function () {
+                  this.message = "Save";
+                }.bind(this),
+                3000
+              );
+            }.bind(this)
+          );
       }
     },
   },

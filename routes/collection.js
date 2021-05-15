@@ -39,33 +39,21 @@ router.delete("/dropCollection", authenticateToken, async (req, res) => {
 });
 
 router.post("/collection/update", authenticateToken, async (req, res) => {
-  if (req.body.name) {
-    await Collection.updateOne(
-      { _id: req.body.id },
-      { $set: { name: req.body.name } }
-    ).catch(() => res.status(500).send("An error occurred"));
-
-    let obj = await Collection.find();
-    res.send(getCollection(obj));
+  let { body } = req;
+  let { files } = req;
+  let bodyObj = {
+    name: body.name,
+    tittle: body.tittle,
+  };
+  if (files != null) {
+    bodyObj.img = { data: files.image.data };
   }
-  if (req.body.tittle) {
-    await Collection.updateOne(
-      { _id: req.body.id },
-      { $set: { tittle: req.body.tittle } }
-    ).catch(() => res.status(500).send("An error occurred"));
+  await Collection.findOneAndUpdate({ _id: body.id }, bodyObj).catch((err) =>
+    res.end(err)
+  );
 
-    let obj = await Collection.find();
-    res.send(getCollection(obj));
-  }
-  if (req.files) {
-    await Collection.updateOne(
-      { _id: req.body.id },
-      { $set: { img: { data: req.files.image.data } } }
-    ).catch(() => res.status(500).send("An error occurred"));
-
-    let obj = await Collection.find();
-    res.send(getCollection(obj));
-  }
+  let obj = await Collection.find();
+  res.send(getCollection(obj));
 });
 
 router.get("/", async (req, res) => {
