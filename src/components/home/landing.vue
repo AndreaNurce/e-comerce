@@ -36,9 +36,9 @@ export default {
       this.loading =true;
       await axios.get("http://localhost:8081/landing-page").then(
         function (res) {
-          this.image = res.data.image;
-          this.tittle = res.data.tittle;
-          this.subTittle = res.data.subTittle;
+          this.image = res.data[0].image;
+          this.tittle = res.data[0].tittle;
+          this.subTittle = res.data[0].subTittle;
       this.loading =false;
 
         }.bind(this)

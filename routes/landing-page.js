@@ -3,34 +3,48 @@ const router = express.Router();
 const landingPageUploads = require("../models/landingPage");
 const authenticateToken = require("../middleWares/jwt");
 
-router.post("/update", authenticateToken, async (req, res) => {
-  if (req.body.tittle) {
-    await landingPageUploads
-      .findOneAndUpdate({ tittle: req.body.tittle })
-      .catch((err) => res.status(500).send("An error occurred",));
-  }
-  if (req.body.subTittle) {
-    await landingPageUploads
-      .findOneAndUpdate({ subTittle: req.body.subTittle })
-      .catch((err) => res.status(500).send("An error occurred"));
-  }
-  if (req.files) {
-    await landingPageUploads
-      .findOneAndUpdate({ img: { data: req.files.image.data } })
-      .catch((err) => res.status(500).send("An error occurred"));
-  }
-  res.status(200).end();
-});
 
-router.get("/", (req, res) => {
-  landingPageUploads.findOne({}, (err, item) => {
+function getPage(obj) {
+  let array = [];
+
+    let object = {
+      image: obj.img.data.toString("base64"),
+      tittle: obj.tittle,
+      subTittle: obj.subTittle,
+    };
+    array.push(object);
+  return array;
+}
+
+router.post("/update", authenticateToken, async (req, res) => {
+
+  let { body } = req;
+  let { files } = req;
+  let bodyObj ={
+    tittle: body.tittle,
+    subTittle: body.subTittle,
+  };
+  if(files != null){
+    bodyObj.img = { data: files.image.data };
+  }
+   await landingPageUploads.findOneAndUpdate(bodyObj).catch((err) => res.end(err))
+   
+   await landingPageUploads.findOne({}, (err, item) => {
     if (err) {
       res.status(500).send("An error occurred");
     } else {
-      let image = item.img.data.toString("base64");
-      let tittle = item.tittle;
-      let subTittle = item.subTittle;
-      res.send({ image, tittle, subTittle });
+      res.send(getPage(item));
+    }
+  });
+
+});
+
+router.get("/", async (req, res) => {
+  await landingPageUploads.findOne({}, (err, item) => {
+    if (err) {
+      res.status(500).send("An error occurred");
+    } else {
+      res.send(getPage(item));
     }
   });
 });
