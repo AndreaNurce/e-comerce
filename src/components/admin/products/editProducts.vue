@@ -99,7 +99,7 @@ export default {
       if(!this.$refs.file.files[0]){
         this.message = ""
       }
-      this.message = "loading";
+      this.message = "Loading ...";
       let fd = new FormData();
       fd.append("name", this.name);
       fd.append("id", this.state.id);
@@ -120,7 +120,6 @@ export default {
         .post("http://localhost:8081/products/product/update",fd )
         .then(
           function (res) {
-            console.log(res)
             this.message = res.data.message;
             this.state.image = res.data.data[0].image
             setTimeout(function () {

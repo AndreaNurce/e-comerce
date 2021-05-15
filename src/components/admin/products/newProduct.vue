@@ -28,17 +28,15 @@
               v-model="price"
               required
               placeholder="Set a price"
-              type="text"
+              type="number"
               autocomplete="off"
-              @keypress="isNumber($event)"
             />
             <input
               v-model="quantity"
               required
               placeholder="Set quantity"
-              type="text"
+              type="number"
               autocomplete="off"
-              @keypress="isNumber($event)"
             />
           </div>
 
@@ -216,7 +214,8 @@ export default {
       flex-direction: column;
       div {
         input[type="text"],
-        input[type="textbox"] {
+        input[type="textbox"],
+        input[type="number"] {
           margin: 0 10px;
           padding: 10px;
           text-align: center;
