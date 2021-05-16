@@ -64,7 +64,7 @@ section {
     padding: 5px;
     .container {
   margin: 25px 0;
-
+  overflow : hidden;
       height: 250px;
       width: 370px;
       position: relative;
