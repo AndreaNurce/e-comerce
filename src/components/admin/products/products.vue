@@ -93,7 +93,10 @@ export default {
   },
   created() {
     this.getProducts();
-  },
+  },unmounted(){
+      this.displayEditor = false;
+
+  }
 };
 </script>
 
@@ -108,7 +111,6 @@ export default {
       padding: 15px;
       text-align: center;
       margin: 0px 15px 8px 15px;
-      background-color: rgb(248, 248, 248);
       p {
         padding-bottom: 8px;
       }

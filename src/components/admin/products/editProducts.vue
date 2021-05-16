@@ -2,7 +2,10 @@
   <div class="edit-product-wrapper">
     <div class="edit-product-section">
       <div class="image-editor">
-        <img :src="'data:image/jpg;base64,' +state.image" alt="" /><br />
+        <img
+          :src="'data:image/jpg;base64,' + state.currentProductEditing[0].image"
+          alt=""
+        /><br />
         <label for="files" class="btn">Select Image</label>
         <input
           required
@@ -82,8 +85,8 @@ export default {
       quantity: Number,
       collection: String,
       collectionNames: Array,
-      state: this.$store.state.currentProductEditing[0],
-      image : null ,
+      state: this.$store.state,
+      image: null,
       message: "Save Changes",
     };
   },
@@ -96,18 +99,18 @@ export default {
       );
     },
     async updateProduct() {
-      if(!this.$refs.file.files[0]){
-        this.message = ""
+      if (!this.$refs.file.files[0]) {
+        this.message = "";
       }
       this.message = "Loading ...";
       let fd = new FormData();
       fd.append("name", this.name);
-      fd.append("id", this.state.id);
+      fd.append("id", this.state.currentProductEditing[0].id);
       fd.append("description", this.description);
       fd.append("price", this.price);
       fd.append("quantity", this.quantity);
       fd.append("inCollection", this.collection);
-      fd.append("image",this.$refs.file.files[0]);
+      fd.append("image", this.$refs.file.files[0]);
 
       this.checkedColors.forEach((item) => {
         fd.append("colors", item);
@@ -117,26 +120,35 @@ export default {
       });
 
       await axios
-        .post("http://localhost:8081/products/product/update",fd )
+        .post("http://localhost:8081/products/product/update", fd)
         .then(
           function (res) {
             this.message = res.data.message;
-            this.state.image = res.data.data[0].image
-            setTimeout(function () {
-              this.message = "Save Changes";
-            }.bind(this), 3000);
+            this.$store.state.productData = res.data.data;
+            this.state.currentProductEditing = res.data.data.filter((item) => {
+              if (item.id == this.state.currentProductEditing[0].id) {
+                return item;
+              }
+            });
+
+            setTimeout(
+              function () {
+                this.message = "Save Changes";
+              }.bind(this),
+              3000
+            );
           }.bind(this)
         );
     },
   },
   created() {
-    this.name = this.state.name;
-    this.description = this.state.description;
-    this.checkedColors = this.state.colors;
-    this.checkedSizes = this.state.sizes;
-    this.price = this.state.price;
-    this.quantity = this.state.quantity;
-    this.collection = this.state.inCollection;
+    this.name = this.state.currentProductEditing[0].name;
+    this.description = this.state.currentProductEditing[0].description;
+    this.checkedColors = this.state.currentProductEditing[0].colors;
+    this.checkedSizes = this.state.currentProductEditing[0].sizes;
+    this.price = this.state.currentProductEditing[0].price;
+    this.quantity = this.state.currentProductEditing[0].quantity;
+    this.collection = this.state.currentProductEditing[0].inCollection;
     this.getCollections();
   },
 };
