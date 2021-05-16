@@ -150,7 +150,6 @@ export default {
 
         fd.append("name", this.name);
         fd.append("description", this.description);
-        fd.append("colors", this.checkedColors);
         fd.append("price", this.price);
         fd.append("quantity", this.quantity);
         fd.append("inCollection", this.collection);
@@ -171,7 +170,12 @@ export default {
           .then(
             function (res) {
               this.$store.state.productData = res.data;
-              // this.$store.commit("getData", res.data);
+              this.name = '';
+              this.collection = '';
+              this.price =null; 
+              this.quantity =null;
+              this.checkedColors =[];
+              this.checkedSizes =[];
 
               this.loading = false;
             }.bind(this)
