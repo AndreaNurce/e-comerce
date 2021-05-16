@@ -30,6 +30,7 @@
               placeholder="Set a price"
               type="number"
               autocomplete="off"
+              step="any"
             />
             <input
               v-model="quantity"
@@ -37,6 +38,7 @@
               placeholder="Set quantity"
               type="number"
               autocomplete="off"
+              step="any"
             />
           </div>
 
