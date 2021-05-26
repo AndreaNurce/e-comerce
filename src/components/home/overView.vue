@@ -3,24 +3,29 @@
     <div class="wrapper">
       <h1>product overview</h1>
       <div class="collections">
-        <p @click="collectionFilter('all')">All Products</p>
+        <p
+          :class="{ active: currColleciton == 'all' }"
+          @click="collectionFilter('all')"
+        >
+          All Products
+        </p>
         <p
           v-for="(collection, index) in collections"
           @click="collectionFilter(collection)"
           :key="index"
+          :class="{ active: currColleciton == collection }"
         >
           {{ collection }}
         </p>
       </div>
 
-        <products :products="state.filteredProducts"/>
-
+      <products :products="state.filteredProducts" />
     </div>
   </section>
 </template>
 
 <script>
-import products from "@/components/products.vue"
+import products from "@/components/products.vue";
 import axios from "axios";
 export default {
   data() {
@@ -29,8 +34,9 @@ export default {
       collections: null,
       currColleciton: "all",
     };
-  },components:{
-    products
+  },
+  components: {
+    products,
   },
   methods: {
     async getProducts() {
@@ -42,13 +48,15 @@ export default {
       );
     },
     collectionFilter(collection) {
-      this.$store.state.filteredProducts = this.state.productData.filter((element) => {
-        if (element.inCollection == collection) {
-          return element;
-        } else if (collection === "all") {
-          return element;
+      this.$store.state.filteredProducts = this.state.productData.filter(
+        (element) => {
+          if (element.inCollection == collection) {
+            return element;
+          } else if (collection === "all") {
+            return element;
+          }
         }
-      });
+      );
     },
     async getCollections() {
       await axios.get("http://localhost:8081/collections/list").then(
@@ -77,8 +85,17 @@ section {
       p {
         display: inline-block;
         padding: 5px;
-        margin: 5px;
+        margin: 15px;
         cursor: pointer;
+        color: gray;
+        font-family: Poppins-Regular;
+        font-size: 18px;
+        line-height: 1.2;
+        transition: $hoverEffect;
+        &:hover {
+          color: black;
+          border-bottom: 1px solid black;
+        }
       }
     }
     h1 {
@@ -88,5 +105,10 @@ section {
       text-transform: uppercase;
     }
   }
+}
+
+.active {
+  color: black !important;
+  border-bottom: 1px solid black;
 }
 </style>>
