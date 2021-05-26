@@ -8,6 +8,7 @@ const store = createStore({
     collectionData : Object,
     currentCollectionEditing : null,
     productData : Object,
+    filteredProducts :Object,
     currentProductEditing : Object,
     productsMenu : '',
   },
