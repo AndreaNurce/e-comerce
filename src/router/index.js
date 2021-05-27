@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Admin from "../views/Admin.vue";
+import Collection from "../views/Collection.vue";
 import logIn from "@/components/logIn.vue";
 import axios from "axios";
 
@@ -15,6 +16,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: logIn,
+  },
+  {
+    path: "/products/product/:name",
+    name: "Collection",
+    component: Collection,
   },
   {
     path: "/admin",

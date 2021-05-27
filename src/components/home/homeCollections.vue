@@ -12,6 +12,7 @@
         v-for="(data, index) in res.collectionData"
         :key="index"
         class="container"
+        @click="router.push(`/products/product/${data.name}`)"
       >
         <img :src="'data:image/jpg;base64,' + data.image" alt="" />
         <div class="effect"></div>
@@ -33,6 +34,7 @@ export default {
   data() {
     return {
       res: this.$store.state,
+      router : this.$router,
       loading: true,
       number: 3,
     };

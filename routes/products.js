@@ -43,7 +43,7 @@ router.post("/", authenticateToken, async (req, res) => {
 router.post("/product/update", authenticateToken, async (req, res) => {
   let { body } = req;
   let { files } = req;
-  let bodyObj ={
+  let bodyObj = {
     name: body.name,
     description: body.description,
     color: body.colors,
@@ -52,14 +52,16 @@ router.post("/product/update", authenticateToken, async (req, res) => {
     quantity: body.quantity,
     inCollection: body.inCollection,
   };
-  if(files != null){
+  if (files != null) {
     bodyObj.img = { data: files.image.data };
   }
   let message;
-   await Products.findOneAndUpdate({_id : body.id},bodyObj).then(message  = "Updated Succesfully").catch((err) => res.end(err))
+  await Products.findOneAndUpdate({ _id: body.id }, bodyObj)
+    .then((message = "Updated Succesfully"))
+    .catch((err) => res.end(err));
   let obj = await Products.find();
   let data = getProducts(obj);
-  res.send({data,message});
+  res.send({ data, message });
 });
 
 router.delete("/dropProduct", authenticateToken, async (req, res) => {
@@ -71,6 +73,12 @@ router.delete("/dropProduct", authenticateToken, async (req, res) => {
 router.get("/", async (req, res) => {
   let obj = await Products.find();
   res.send(getProducts(obj));
+});
+
+router.get("/product/:name", async (req, res) => {
+  let obj = await Products.find({ inCollection: req.params.name });
+  let data = getProducts(obj);
+  res.send(data);
 });
 
 module.exports = router;
