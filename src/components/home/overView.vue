@@ -1,6 +1,12 @@
 <template>
   <section class="over-view">
-    <div class="wrapper">
+        <skeleton
+      v-if="loading"
+      contentWidth="270px"
+      :quantitys="number"
+      contentHeight="390px"
+    /> 
+    <div class="wrapper"   v-if="!loading">
       <h1>product overview</h1>
       <div class="collections">
         <p
@@ -26,6 +32,7 @@
 
 <script>
 import products from "@/components/products.vue";
+import skeleton from "@/components/skeleton.vue";
 import axios from "axios";
 export default {
   data() {
@@ -33,10 +40,13 @@ export default {
       state: this.$store.state,
       collections: null,
       currCollection: "all",
+      loading :true,
+      number :10,
     };
   },
   components: {
     products,
+    skeleton, 
   },
   methods: {
     async getProducts() {
@@ -44,6 +54,7 @@ export default {
         function (res) {
           this.$store.state.productData = res.data;
           this.collectionFilter("all");
+          this.loading =false;
         }.bind(this)
       );
     },
