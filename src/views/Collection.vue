@@ -4,6 +4,7 @@
       <h1>
         {{ params.name }}
       </h1>
+      <hr>
       <skeleton
         v-if="loading"
         contentWidth="270px"
@@ -37,6 +38,7 @@ export default {
       axios.get(`http://localhost:8081/products/product/${param}`).then(
         function (res) {
           this.products = res.data;
+          console.log(this.products);
           this.loading = false;
         }.bind(this)
       );

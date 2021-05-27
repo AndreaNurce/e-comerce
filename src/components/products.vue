@@ -12,7 +12,11 @@
 
       <div class="fav">
         <p>{{ product.name }}</p>
-        <i class="fas fa-heart"></i>
+        <i
+          @click="fav(product.id)"
+          :class="{ active: favArray.includes(product.id) }"
+          class="fas fa-heart"
+        ></i>
       </div>
       <p>${{ product.price }}</p>
     </div>
@@ -21,11 +25,36 @@
 
 <script>
 export default {
-    props:{
-        products :{
-            required : true
+  data() {
+    return {
+      favArray: [],
+    };
+  },
+  props: {
+    products: {
+      required: true,
+    },
+  },
+  methods: {
+    fav(id) {
+      if (!localStorage.getItem("fav")) {
+        this.favArray.push(id);
+        localStorage.setItem("fav", JSON.stringify(this.favArray));
+      } else {
+        this.favArray = JSON.parse(localStorage.getItem("fav"));
+        if (this.favArray.includes(id)) {
+          let index = this.favArray.indexOf(id);
+          this.favArray.splice(index ,1);
+        } else {
+          this.favArray.push(id);
         }
-    }
+        localStorage.setItem("fav", JSON.stringify(this.favArray));
+      }
+    },
+  },
+  created() {
+    this.favArray = JSON.parse(localStorage.getItem("fav"));
+  },
 };
 </script>
 
@@ -104,5 +133,8 @@ export default {
       color: #666;
     }
   }
+}
+.active {
+  color: $iconHover !important;
 }
 </style>
