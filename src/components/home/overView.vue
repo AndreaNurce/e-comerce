@@ -4,7 +4,7 @@
       <h1>product overview</h1>
       <div class="collections">
         <p
-          :class="{ active: currColleciton == 'all' }"
+          :class="{ active: currCollection == 'all' }"
           @click="collectionFilter('all')"
         >
           All Products
@@ -13,7 +13,7 @@
           v-for="(collection, index) in collections"
           @click="collectionFilter(collection)"
           :key="index"
-          :class="{ active: currColleciton == collection }"
+          :class="{ active: currCollection == collection }"
         >
           {{ collection }}
         </p>
@@ -32,7 +32,7 @@ export default {
     return {
       state: this.$store.state,
       collections: null,
-      currColleciton: "all",
+      currCollection: "all",
     };
   },
   components: {
@@ -48,6 +48,7 @@ export default {
       );
     },
     collectionFilter(collection) {
+      this.currCollection = collection;
       this.$store.state.filteredProducts = this.state.productData.filter(
         (element) => {
           if (element.inCollection == collection) {
@@ -109,6 +110,6 @@ section {
 
 .active {
   color: black !important;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid black !important;
 }
 </style>>
