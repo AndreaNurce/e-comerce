@@ -1,12 +1,12 @@
 <template>
   <section class="over-view">
-        <skeleton
+    <skeleton
       v-if="loading"
       contentWidth="270px"
       :quantitys="number"
       contentHeight="390px"
-    /> 
-    <div class="wrapper"   v-if="!loading">
+    />
+    <div class="wrapper" v-if="!loading">
       <h1>product overview</h1>
       <div class="collections">
         <p
@@ -40,13 +40,13 @@ export default {
       state: this.$store.state,
       collections: null,
       currCollection: "all",
-      loading :true,
-      number :10,
+      loading: true,
+      number: 10,
     };
   },
   components: {
     products,
-    skeleton, 
+    skeleton,
   },
   methods: {
     async getProducts() {
@@ -54,7 +54,7 @@ export default {
         function (res) {
           this.$store.state.productData = res.data;
           this.collectionFilter("all");
-          this.loading =false;
+          this.loading = false;
         }.bind(this)
       );
     },
@@ -90,7 +90,6 @@ section {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   .wrapper {
     width: 90%;
     .collections {
